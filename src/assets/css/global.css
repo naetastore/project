@@ -1,0 +1,195 @@
+/* Reguler */
+@font-face {
+    font-family: "SF Display";
+    font-weight: 400;
+    src: url("../font/SF-UI-Display-Regular.otf");
+    font-display: fallback;
+}
+/* Medium */
+/* @font-face {
+    font-family: "SF Display";
+    font-weight: 500;
+    src: url("../font//SF-UI-Display-Medium.otf");
+} */
+
+/* Jangan diedit bagian form styling */
+/* Form styling */
+div.form-title {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    font-weight: 500;
+}
+
+button[type=submit] {
+    width: 100%;
+    margin-top: 20px;
+}
+
+div.form-group span {
+    color: #74788C;
+}
+
+div.form-group {
+    padding: 20px 20px 10px 20px;
+    margin-bottom: unset;
+}
+
+div.form-group:last-child {
+    padding-bottom: 20px;
+}
+
+input.form-control::placeholder {
+    font-weight: 600;
+    color: #D3D6DB;
+    font-size: 20px;
+    letter-spacing: 0.2px;
+}
+
+input.form-control:focus {
+    border-color: unset;
+    box-shadow: unset;
+}
+
+input.form-control {
+    padding: unset;
+    font-weight: 600;
+    font-size: 22px;
+    border: none;
+    color: #2B324E;
+}
+
+label.form-label {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: #74788C;
+}
+
+label.form-check-label {
+    letter-spacing: 0.2px;
+}
+/* End form styling */
+
+/* Jangan Edit Lagi */
+body {
+    font-family: "SF Display";
+    margin: auto;
+    background-color: #F4F5F9;
+}
+
+ body, nav.navbar{
+    max-width: 414px;
+} 
+
+hr {
+    border-top: 1px solid #EAEAEC;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.navbar {
+    padding: unset;
+}
+
+.margin-bottom-80 {
+    margin-bottom: 80px;
+}
+
+.city {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    color: #5468FF;
+    font-size: 16px;
+    margin-top: 4px;
+    padding-top: 0.35714rem !important;
+    padding-bottom: 0.35714rem !important;
+    letter-spacing: 0;
+}
+
+div.products {
+    /*background-color: #FFF;*/
+    box-shadow: 0px 13px 15px 6px #edeef2;
+    border-radius: 15px;
+}
+
+button.direct {
+    cursor: pointer;
+    color: #5468FF;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    width: max-content;
+}
+
+a {
+    color: #5468FF;
+}
+
+a:hover {
+    color: #5468FF;
+    text-decoration: none;
+}
+
+.make-it-rounder {
+    border-radius: 15px;
+}
+
+.make-it-horizontal {
+    overflow: auto;
+    white-space: nowrap;
+}
+/* End */
+
+/* NEW LINE */
+div.card {
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: unset;
+}
+
+div.card div.card-title {
+    font-weight: 600;
+    font-size: 18px;
+    /* font-size: 22px; */
+    color: #2B324E;
+    padding: 20px 20px 10px 20px;
+    margin: unset;
+}
+
+div.card div.card-body:last-child {
+    padding-bottom: 20px;
+}
+
+div.card div.card-body {
+    font-size: 17px;
+    color: #2B324E;
+    padding: 10px 20px 10px 20px;
+    margin: unset;
+}
+
+div.cart-progress .progress-event {
+    position: unset;
+    left: unset;
+    top: unset;
+    margin: unset;
+    width: unset;
+}
+
+button.close {
+    position: relative;
+    top: 2px;
+    right: 5%;
+    outline: none;
+}
+/* END NEW LINE */
+
+.carousel-indicators {
+    bottom: unset;
+    width: 0;
+}

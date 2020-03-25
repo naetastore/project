@@ -1,0 +1,12 @@
+div.heading {
+    margin-bottom: 4px;
+    padding: 6px;
+}
+
+div.heading .title {
+    text-align: center;
+    color: #676767;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 0.4rem;
+}

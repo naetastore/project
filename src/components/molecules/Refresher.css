@@ -1,0 +1,31 @@
+div.refresh-page img.refresh-icon {
+    cursor: pointer;
+    width: 35px;
+    float: right;
+    position: relative;
+    right: 10px;
+    z-index: 1;
+}
+
+div.refresh-page img.refresh-icon.true {
+    animation: 800ms spin cubic-bezier(0.4, 0, 1, 1) infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(180deg); }
+}
+
+div.refresh-page div.child {
+    z-index: 1;
+    animation: 1800ms fade infinite;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 50%;
+    }
+    50% {
+        opacity: 100%;
+    }
+    100% { opacity: 50%;}
+}

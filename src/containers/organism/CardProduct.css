@@ -1,0 +1,9 @@
+div.title {
+    color: #4f585f;
+    text-align: center;
+}
+
+div.desc {
+    font-size: 17px;
+    margin-bottom: 6px;
+}

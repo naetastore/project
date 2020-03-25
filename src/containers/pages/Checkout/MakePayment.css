@@ -1,0 +1,29 @@
+/* div.payment-methods {
+    padding: 20px;
+    display: flex;
+} */
+
+div.flex span:last-child {
+    text-align: right;
+}
+
+div.flex span {
+    width: 50%;
+    margin: 0px auto;
+}
+
+div.flex {
+    display: flex;
+}
+
+div.order-summary {
+    margin-bottom: 10px;
+}
+
+div.order-summary .order-price {
+    color: #798086;
+}
+
+div.card-footer button.btn {
+    width: 100%;
+}

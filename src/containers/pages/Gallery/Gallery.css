@@ -1,0 +1,27 @@
+.gallery div.loading {
+    position: static;
+    padding: 8px;
+    background-color: #2b2b2d;
+    width: max-content;
+    margin: 0px auto;
+    color: #FFF;
+    border-radius: 15px;
+}
+
+.gallery {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+div.gallery div.input {
+    margin: 20px auto;
+}
+
+.figure img {
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.figure {
+    margin: 5px !important;
+}

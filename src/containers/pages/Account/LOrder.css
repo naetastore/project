@@ -1,0 +1,36 @@
+div.order-confirm div.confirm:hover {
+    cursor: pointer;
+}
+
+div.order-confirm div.confirm {
+    color: #5468FF;
+    margin: auto;
+}
+
+div.order-confirm div.question {
+    margin-right: 10px;
+    text-align: left;
+}
+
+div.order-confirm div.go-back:hover {
+    cursor: pointer;
+}
+
+div.order-confirm div.go-back {
+    text-align: right;
+    color: #5468FF;
+}
+
+div.order-confirm {
+    display: flex;
+    padding: 15px;
+    background-color: #FFF;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0px 5px 15px 6px #0000000d;
+}
+
+div.notif-list-group img.avatar {
+    width: 70px;
+    background-color: #F1F0F6;
+}

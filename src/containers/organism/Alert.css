@@ -1,0 +1,28 @@
+div.alert {
+    text-align: center;
+}
+
+div.alert h4 {
+    color: #313C4E;
+    font-weight: 600;
+}
+
+div.alert-body {
+    color: #666C78;
+    font-size: 18px;
+    margin: 0px auto;
+    width: calc(100%/1.5);
+}
+
+div.alert-footer button.btn.plus {
+    margin-top: 25px;
+    width: 50px;
+    height: 50px;
+    color: #FFF;
+}
+
+div.alert-footer button.btn.plus img.plus-icon {
+    width: 20px;
+    position: relative;
+    top: 0px;
+}

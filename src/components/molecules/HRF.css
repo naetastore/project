@@ -1,0 +1,48 @@
+._8qtb {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10px;
+    width: 90%;
+}
+
+._43mg {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+
+._43mg>span {
+    display: inline-block;
+    position: relative;
+}
+
+._43mh {
+    color: #4b4f56;
+}
+
+._43mg>span:before {
+    margin-right: 15px;
+    right: 100%;
+}
+
+._43mg>span:before, ._43mg>span:after {
+    background: #ccd0d5;
+    content: '';
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+}
+._43mg>span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+._43mg>span:before, ._43mg>span:after {
+    background: #ccd0d5;
+    content: '';
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+}

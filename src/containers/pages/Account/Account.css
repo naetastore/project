@@ -1,0 +1,102 @@
+/* Header styling */
+div.account-header {
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 15px;
+    background-color: #FFF;
+}
+
+div.account-header div.account {
+    margin-bottom: 15px;
+}
+
+div.account-header div.account div.avatar {
+    width: max-content;
+    border-radius: 15px;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+div.account-header div.account img.avatar:hover {
+    cursor: pointer;
+}
+
+div.account-header div.account img.avatar {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: #F1F0F6;
+}
+
+div.account-header div.account div.av-desc .name {
+    font-weight: 600;
+    font-size: 20px;
+    color: #313C4E;
+}
+/* End header styling */
+
+
+/* Tabs styling */
+div.tabs {
+    display: flex;
+    border-radius: 15px;
+    background-color: #FFF;
+    height: 45px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+div.tabs a {
+    width: 105px;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 11px 8px;
+    font-weight: 500;
+    color: #666C78;
+    flex: auto;
+    margin: auto 0px;
+    position: relative;
+    height: 100%;
+    transition: 0.2s box-shadow;
+}
+
+div.tabs a:hover {
+    text-decoration: none;
+}
+
+div.tabs a.active {
+    color: #2C343F;
+    box-shadow: 0px 10px 15px 0px #5468ff12;
+}
+
+div.tabs a:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+div.tabs a:nth-child(2) {
+    border-right: 1px solid #F1F0F6;
+}
+div.tabs a:nth-child(3) {
+    border-right: 1px solid #F1F0F6;
+}
+
+div.tabs a:first-child {
+    border-right: 1px solid #F1F0F6;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+/* End tabs styling */
+
+
+/* NEW LINE */
+div.account-body {
+    margin-top: 20px;
+    margin-bottom: 80px;
+}
+
+div.account-header div.account div.avatar div.av-desc {
+    margin-left: 20px;
+}
+/* END NEW LINE */

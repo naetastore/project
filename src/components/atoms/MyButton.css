@@ -1,0 +1,18 @@
+button.my-button {
+    width: 100%;
+    color: #deffff;
+    background: linear-gradient(#9EAFFF, #00E3D1);
+    border: none;
+    border-radius: 15px;
+    padding: 14px;
+    outline: none;
+}
+
+button.my-button:hover {
+    outline: none;
+    background: linear-gradient(#8798e8, #00E3D1);
+}
+
+button.my-button:active {
+    outline: none;
+}

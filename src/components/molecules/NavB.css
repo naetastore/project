@@ -1,0 +1,51 @@
+nav.navbar-bottom {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    text-align: center;
+    display: flex;
+    background-color: #FFF;
+    height: 61px;
+    position: fixed;
+    bottom: -2px;
+    padding: 0.7rem;
+    z-index: 1;
+    width: 100%;
+    box-shadow: 0px 5px 15px 6px #0000000d;
+}
+
+.checkout-bottom img.move-to-icon {
+    height: 1rem;
+    position: relative;
+    top: 2px;
+}
+
+.checkout-bottom img.troley {
+    height: 28px;
+}
+
+span.counter {
+    margin-left: 7px;
+    padding: 1px 9px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: #3CC9C3;
+}
+
+.checkout-bottom a {
+    width: 28px;
+}
+
+.checkout-bottom {
+    left: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.checkout-bottom .text {
+    color: #676767;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}

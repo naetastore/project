@@ -1,0 +1,14 @@
+div.settings {
+    margin-top: 20px;
+}
+
+div.settings div.setting-group {
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    border-radius: 15px;
+    padding: 8px;
+    display: flex;
+}
+
+div.settings div.setting-group input[type="checkbox"] {
+    margin-left: 20px;
+}
