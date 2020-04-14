@@ -1,11 +1,10 @@
 import React from 'react';
 import './Search.css';
-import Wrapper from '../../organism/Wrapper';
 import InputKeyword from '../../../components/molecules/InputKeyword';
-import LSearch from '../../organism/LSearch';
+import LSearch from './LSearch';
 import API from '../../../services';
-import { REST } from '../../../config/REST';
 import { connect } from 'react-redux';
+import Wrapper from '../../organism/Wrapper';
 
 class Search extends React.Component {
 
@@ -21,6 +20,11 @@ class Search extends React.Component {
     async componentDidMount() {
         const search = await this.searchChecking();
         if (search) this.search();
+    }
+
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
     }
 
     searchChecking = () => {
@@ -53,29 +57,29 @@ class Search extends React.Component {
         this.props.addToCart(s);
     }
 
+    moveToSingle = id => {
+        this.props.history.push(`/single/${id}`);
+    }
+
     render() {
         return (
-            <Wrapper
-                className="mt-3"
-                container={
-                    <>
-                        <InputKeyword
-                            placeholder="Kata kunci..."
-                            ngChange={e => this.ngChange(e)}
-                            ngClick={this.search}
+            <div className="search-page">
+                <InputKeyword
+                    placeholder="Kata kunci..."
+                    ngChange={this.ngChange}
+                    ngClick={this.search}
+                />
+                <Wrapper container={
+                    this.state.error
+                        ? <div className="alert alert-danger">{this.state.error}</div>
+                        :
+                        <LSearch
+                            data={this.state.search}
+                            addToCart={this.addToCart}
+                            moveToSingle={this.moveToSingle}
                         />
-                        {this.state.error
-                            ? <div className="alert alert-danger">{this.state.error}</div>
-                            :
-                            <LSearch
-                                imgloc={`${REST.server.url}assets/img/product/`}
-                                data={this.state.search}
-                                addToCart={s => this.addToCart(s)}
-                            />
-                        }
-                    </>
-                }
-            />
+                } />
+            </div>
         );
     }
 

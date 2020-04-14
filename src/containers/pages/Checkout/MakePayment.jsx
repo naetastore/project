@@ -3,7 +3,6 @@ import './MakePayment.css';
 import { connect } from 'react-redux';
 import API from '../../../services';
 import AsyncButton from '../../../components/molecules/AsyncButton';
-import Wrapper from '../../organism/Wrapper';
 import Plus from '../../../assets/img/icon/plus-cyan.svg';
 import MoveTo from '../../../assets/img/icon/right-arrow.svg';
 import Progress from '../../../components/molecules/Progress';
@@ -21,7 +20,8 @@ class MakePayment extends React.Component {
             labelButton: '',
             icon: null,
             hit: 0,
-            progress: 0
+            progress: 0,
+            totalOrder: 0
         }
     }
 
@@ -31,12 +31,14 @@ class MakePayment extends React.Component {
             this.setAlert('Error', 'Something went wrong!');
             return;
         }
-        this.setState({ addedItems: length, labelButton: 'Buat Order', icon: Plus });
+        const totalOrder = this.state.shipping + this.props.totalOrder;
+        this.setState({ addedItems: length, labelButton: 'Buat Order', icon: Plus, totalOrder });
     }
 
     makePayment = async () => {
+        await this.setState({ progress: 0 });
         const { addedItems, inSession, deleteItem, destroy } = this.props;
-        let hit = this.state.hit++;
+        let hit = this.state.hit += 1;
         if (hit > 2) {
             this.setAlert('Error', 'What happend we could n\'t create order!');
             destroy();
@@ -62,14 +64,14 @@ class MakePayment extends React.Component {
                     'price': a.price
                 }
                 deleteItem(b);
-                x--;
+                x -= 1;
                 this.setProgress(n);
                 if (x < 1) {
                     this.setAlert('Success!', 'Created new order successfuly!');
                     this.setState({ isloading: false });
                 }
             } catch (err) {
-                // console.error('error => ', err);
+                console.error('error ', err);
                 alert(err.message);
                 this.setState({ isloading: false, labelButton: 'Coba lagi', icon: MoveTo });
             }
@@ -99,24 +101,23 @@ class MakePayment extends React.Component {
                         <Progress percentase={this.state.progress} />
                     </div>
                     <div className="form-title">Order Summary</div>
-                    <Wrapper className="margin-bottom-80 mt-3" container={
-                        <Fragment>
-                            <OrderSummary
-                                onSession={this.props.inSession}
-                                addedItems={this.props.addedItems}
-                                totalOrder={this.props.totalOrder}
-                                shipping={this.state.shipping}
-                                idName="id"
-                                ngClickProduct={this.moveToSingle}
-                            />
-                            <AsyncButton
-                                isLoading={this.state.isloading}
-                                label={this.state.labelButton}
-                                ngClick={this.makePayment}
-                                icon={this.state.icon}
-                            />
-                        </Fragment>
-                    } />
+                    <div className="g-mx-25 mt-3 margin-bottom-80">
+                        <OrderSummary
+                            onSession={this.props.inSession}
+                            addedItems={this.props.addedItems}
+                            subTotal={this.props.totalOrder}
+                            totalOrder={this.state.totalOrder}
+                            shipping={this.state.shipping}
+                            idName="id"
+                            ngClickProduct={this.moveToSingle}
+                        />
+                        <AsyncButton
+                            isLoading={this.state.isloading}
+                            label={this.state.labelButton}
+                            ngClick={this.makePayment}
+                            icon={this.state.icon}
+                        />
+                    </div>
                 </Fragment>
         );
     }

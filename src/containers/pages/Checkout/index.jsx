@@ -5,7 +5,7 @@ import API from '../../../services';
 import Wrapper from '../../organism/Wrapper';
 import Progress from '../../../components/molecules/Progress';
 import Alert from '../../organism/Alert';
-import FormBilling from '../../organism/FormBilling';
+import FormBilling from './FormBilling';
 
 class Checkout extends React.Component {
 
@@ -25,20 +25,36 @@ class Checkout extends React.Component {
             this.setAlert('Error', 'Something went wrong!');
             return;
         }
+        this.init();
         this.updateState();
+    }
+
+    componentWillUnmount() {
+        return;
+    }
+
+    init = () => {
+        const { username, password } = this.props.inSession;
+        this.setState({
+            username,
+            password,
+            name: '',
+            phonenumber: '',
+            address: ''
+        });
     }
 
     updateState = async () => {
         try {
             const { username, password } = this.props.inSession;
             let user = await API.GET('user', { username, password });
-            user = user.data.data;
+            user = user.data.user;
 
             const formUser = {
                 username, password,
-                'name': user.name,
-                'address': user.address,
-                'phonenumber': user.primaryPhone
+                name: user.name,
+                address: user.address,
+                phonenumber: user.phone
             }
             this.setState({ formUser });
         } catch (err) {
@@ -59,30 +75,31 @@ class Checkout extends React.Component {
         }
 
         this.updateUser();
-
-        /** adakah kuantitas product yang bernilai 0
-         * kalau ada mau kita hapus
-         */
         this.props.whenYourZero();
     }
 
     updateUser = async () => {
         this.setState({ isLoading: true });
         try {
-            await API.POST('upuser', this.state.formUser);
+            let response = await API.POST('upuser', this.state.formUser);
 
-            this.updateSession();
+            response = response.data.user;
+            const userdata = { ...this.props.inSession };
+            userdata['name'] = response.name;
+            userdata['address'] = response.address;
+            userdata['phone'] = response.phone;
+            this.props.updateSession(userdata);
+
             this.setState({ isLoading: false });
 
             this.props.history.push('/makepayment');
             return;
         } catch (err) {
             console.error(err);
+            this.setState({ error: err.message });
             this.setState({ isLoading: false });
         }
     }
-
-    updateSession = () => this.props.updateSession(this.state.formUser);
 
     setAlert(title, message) {
         const alert = { title, message }

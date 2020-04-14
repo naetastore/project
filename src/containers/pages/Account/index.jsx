@@ -3,9 +3,12 @@ import { REST } from '../../../config/REST';
 import { NavLink } from 'react-router-dom';
 import './Account.css';
 import { connect } from 'react-redux';
-import API from '../../../services';
 import Axios from 'axios';
 import Progress from '../../../components/molecules/Progress';
+import Default from '../../../assets/img/avatar/default.svg';
+import { Session } from '../../../config/Session';
+import API from '../../../services';
+import { store } from '../../../config/redux/store';
 
 class Account extends React.Component {
 
@@ -13,6 +16,7 @@ class Account extends React.Component {
         super(props);
         this.state = {
             name: '',
+            phone: '',
             avatar: null,
             inputFile: null,
             progress: 0,
@@ -21,53 +25,73 @@ class Account extends React.Component {
     }
 
     async componentDidMount() {
-        if (!this.props.isAuthenticated) {
+        const session = Session.get();
+        if (!session) {
+            this.props.history.push('/auth?myprofile');
             return;
+        } else {
+            await this.setSession(session);
         }
-        await this.setState({
-            name: this.props.inSession.username,
-            avatar: `${REST.server.url}assets/img/avatar/default_avatar.svg`
-        });
-        this.getUserData();
-    }
 
-    getUserData = async () => {
-        try {
-            const { username, password } = this.props.inSession;
+        this.init();
+        this.updateState();
 
-            let response = await API.GET('user', { username, password });
-            response = response.data.data;
-
-            this.setState({ avatar: `${REST.server.url}assets/img/avatar/${response.avatar}` });
-            this.updateSession(response);
-            this.updateState(response);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    updateSession = newdata => {
-        let userdata = { ...this.props.inSession }
-        userdata['name'] = newdata.name;
-        userdata['roleId'] = newdata.roleId;
-        userdata['phone'] = newdata.primaryPhone;
-        userdata['created'] = newdata.dateCreated;
-        userdata['avatar'] = `${REST.server.url}assets/img/avatar/${newdata.avatar}`;
-
-        this.props.updateSession(userdata);
-
-        const { username, password } = this.props.inSession;
-        const session = window.sessionStorage;
-        if (!session.getItem('naetastore_name')) {
-            session.setItem('naetastore_name', username);
-            session.setItem('naetastore_pass', password);
-            session.setItem('naetastore_role', userdata.roleId);
-            session.setItem('naetastore_avatar', userdata.avatar);
+        const c = new AbortController();
+        if (!c.signal.aborted) {
+            store.subscribe(() => {
+                let inSession = store.getState().inSession;
+                let { name, phone } = inSession;
+                if (name !== undefined && name !== this.state.name) {
+                    this.setState({ name });
+                }
+                if (phone !== this.state.phone) {
+                    this.setState({ phone });
+                }
+            });
         }
     }
 
-    updateState = () => {
-        this.setState({ name: this.props.inSession.name });
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
+    }
+
+    setSession = userdata => {
+        this.props.setAuthenticated(true);
+        this.props.setSession(userdata);
+    }
+
+    init = async () => {
+        await this.setState({ avatar: Default });
+    }
+
+    updateState = async () => {
+        let session = Session.get();
+
+        let inSession = this.props.inSession;
+        let { avatar, username, name } = inSession;
+
+        if (name === undefined) {
+            let response = await API.GET('user', { username: session.username, password: session.password });
+            response = response.data.user;
+            response['password'] = session.password;
+
+            const newUserData = response;
+            this.props.setSession(newUserData);
+            inSession = this.props.inSession;
+        }
+
+        if (inSession.name !== undefined) {
+            this.setState({ name: inSession.name });
+        } else {
+            this.setState({ name: username });
+        }
+
+        this.setState({ phone: inSession.phone });
+
+        if (inSession.avatar !== undefined) {
+            this.setState({ avatar });
+        }
     }
 
     setLoading = isloading => {
@@ -84,8 +108,14 @@ class Account extends React.Component {
         }
 
         this.setState({ inputFile: img });
-        const newImg = await this.updateAvatar(img);
-        this.updateUI(newImg);
+
+        try {
+            const newImg = await this.updateAvatar(img);
+            window.sessionStorage.setItem('naetastore_avatar', newImg.path);
+            this.updateUI(newImg);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     updateAvatar = img => {
@@ -113,21 +143,21 @@ class Account extends React.Component {
                     this.setLoading(false);
                     reject(err.response);
                     console.log(err.response);
-                    // console.error(err.response.data);
                 });
         });
     }
 
-    updateUI = newdata => {
+    updateUI = () => {
         const img = this.state.inputFile;
         const reader = new FileReader();
 
         reader.onload = () => {
             this.setState({ avatar: reader.result });
+
             let userdata = { ...this.props.inSession }
             userdata['avatar'] = reader.result;
-            this.props.updateSession(userdata);
-            window.sessionStorage.setItem('naetastore_avatar', newdata.path);
+
+            this.props.setSession(userdata);
         }
         reader.readAsDataURL(img);
         this.setLoading(false);
@@ -150,68 +180,41 @@ class Account extends React.Component {
                             />
                             <img
                                 onClick={() => this.fileinput.click()}
-                                alt="avatar" src={this.state.avatar} className="avatar" />
+                                alt="avatar" src={this.state.avatar} className="avatar"
+                            />
                             <div className="av-desc">
                                 <div className="name">
                                     {this.state.name}
                                 </div>
-                                <div>{this.props.inSession.phone}</div>
+                                <div>{this.state.phone}</div>
                                 <div>{this.props.inSession.created}</div>
                             </div>
                         </div>
                     </div>
                     <div className="tabs">
-                        {
-                            this.props.inSession.roleId > 1
-                                ?
-                                <Fragment>
-                                    <NavLink
-                                        to='/account/myprofile'
-                                        classactive="active"
-                                    >
-                                        <div className="tab-menu">Akun</div>
-                                    </NavLink>
-                                    <NavLink
-                                        to='/account/order'
-                                    >
-                                        <div className="tab-menu">Order</div>
-                                    </NavLink>
-                                    <NavLink
-                                        to='/account/notification'
-                                    >
-                                        <div className="tab-menu">Notifikasi</div>
-                                    </NavLink>
-                                    <NavLink
-                                        to='/account/help'
-                                    >
-                                        <div className="tab-menu">Bantuan</div>
-                                    </NavLink>
-                                </Fragment>
-                                :
-                                <Fragment>
-                                    <NavLink
-                                        to='/account/admin'
-                                        classactive="active"
-                                    >
-                                        <div className="tab-menu">Statistik</div>
-                                    </NavLink>
-                                    <NavLink
-                                        to='/account/order'
-                                    >
-                                        <div className="tab-menu">Order</div>
-                                    </NavLink>
-                                    <NavLink
-                                        to='/account/notification'
-                                    >
-                                        <div className="tab-menu">Notifikasi</div>
-                                    </NavLink>
-                                    <NavLink
-                                        to='/account/settings'
-                                    >
-                                        <div className="tab-menu">Setelan</div>
-                                    </NavLink>
-                                </Fragment>
-                        }
+                        <Fragment>
+                            <NavLink
+                                to='/account/myprofile'
+                                classactive="active"
+                            >
+                                <div className="tab-menu">Akun</div>
+                            </NavLink>
+                            <NavLink
+                                to='/account/order'
+                            >
+                                <div className="tab-menu">Order</div>
+                            </NavLink>
+                            <NavLink
+                                to='/account/notification'
+                            >
+                                <div className="tab-menu">Notifikasi</div>
+                            </NavLink>
+                            <NavLink
+                                to='/account/settings'
+                            >
+                                <div className="tab-menu">Setelan</div>
+                            </NavLink>
+                        </Fragment>
                     </div>
                 </div>
             </Fragment>
@@ -226,7 +229,8 @@ const mapStateToProps = state => ({
 });
 
 const dispatch = dispatch => ({
-    updateSession: userdata => dispatch({ type: 'UPDATE_SESSION', userdata })
-});
+    setSession: userdata => dispatch({ type: "SET_SESSION", userdata }),
+    setAuthenticated: value => dispatch({ type: 'IS_AUTHENTICATED', value })
+})
 
 export default connect(mapStateToProps, dispatch)(Account);

@@ -1,42 +1,25 @@
 import React from 'react';
-import API from '../../../services';
 import { connect } from 'react-redux';
+import { Session } from '../../../config/Session';
 
 class MyProfile extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            isloading: true,
-            userdata: {}
-        }
-    }
-
     componentDidMount() {
-        if (!this.props.isAuthenticated) {
+        const session = Session.get();
+        if (!session) {
             this.props.history.push('/auth?account/myprofile');
             return;
+        } else {
+            this.setSession(session);
         }
-        // this.getData();
     }
 
-    getData = async () => {
-        const userdata = this.props.userData;
-        if (userdata !== null) {
-            this.setState({ userdata, isloading: false });
-        } else {
-            const { username, password } = this.props.inSession;
-            try {
-                const response = await API.GET('user', { username, password });
-                const userdata = response.data.data;
-                this.props.setUserData(userdata);
-                this.setState({ userdata, isloading: false });
-            } catch (err) {
-                if (err.status === false) {
-                    this.setState({ error: err.status });
-                }
-            }
+    setSession = userdata => {
+        this.props.setAuthenticated(true);
+        if (this.props.inSession) {
+            return;
         }
+        this.props.setSession(userdata);
     }
 
     render() {
@@ -53,10 +36,12 @@ class MyProfile extends React.Component {
 
 const mapStateToProps = state => ({
     inSession: state.inSession,
-    userData: state.userData,
     isAuthenticated: state.isAuthenticated
 });
 
-const dispatch = dispatch => ({ setUserData: data => dispatch({ type: "SET_USERDATA", data }) })
+const reduxDispatch = dispatch => ({
+    setSession: userdata => dispatch({ type: "SET_SESSION", userdata }),
+    setAuthenticated: value => dispatch({ type: 'IS_AUTHENTICATED', value })
+});
 
-export default connect(mapStateToProps, dispatch)(MyProfile);
+export default connect(mapStateToProps, reduxDispatch)(MyProfile);

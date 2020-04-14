@@ -1,19 +1,23 @@
 import React from 'react';
 import './HMenu.css';
-import Box from './Box';
+import { NavLink } from 'react-router-dom';
 
 const HMenu = (props) => {
     return (
         <div className="h_">
-            {/* ngRepeat Menu Category */}
             {props.data.map(m =>
-                <Box
+                <NavLink
                     key={m.id}
-                    title={m.name}
-                    href={props.href + '/' + m.id}
-                />
+                    to={`${props.href}/${m.id}`}
+                    className="box"
+                    activeclass="active"
+                    onClick={props.ngClick}
+                >
+                    <div className="box-title">
+                        {m.name}
+                    </div>
+                </NavLink>
             )}
-            {/* End ngRepeat Menu Category */}
         </div>
     )
 }

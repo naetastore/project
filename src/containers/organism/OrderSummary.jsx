@@ -1,12 +1,13 @@
 import React from 'react';
 
 function OrderSummary(props) {
+    let curs = ''; if (props.addedItems.length) curs = props.addedItems[0].curs;
     return (
         <div className="card">
-            <div className="card-title">{props.onSession.name}</div>
+            <div className="card-title pb-0">{props.onSession.name}</div>
             <div className="card-body">
                 <div>{props.onSession.address}</div>
-                <div>{props.onSession.phonenumber}</div>
+                <div><a href={`tel://${props.onSession.phone}`}>{props.onSession.phone}</a></div>
             </div>
 
             <hr />
@@ -21,7 +22,7 @@ function OrderSummary(props) {
                 {props.addedItems.map((a, i) =>
                     <div key={i} className="order-summary">
                         <div onClick={() => props.ngClickProduct(a[props.idName])}>{a.name} <span className="counter">{a.qty}</span></div>
-                        <div className="order-price">Rp. {a.price}</div>
+                        <div className="order-price">{a.curs} {a.price}</div>
                     </div>
                 )}
                 {/* End ngRepeat Item */}
@@ -29,17 +30,17 @@ function OrderSummary(props) {
                 <div className="order-summary">
                     <div className="flex">
                         <span>Subtotal: </span>
-                        <span>Rp. {props.totalOrder}</span>
+                        <span>{curs} {props.subTotal}</span>
                     </div>
                     <div className="flex">
                         <span>Pengiriman: </span>
-                        <span>Rp. {props.shipping}</span>
+                        <span>{curs} {props.shipping}</span>
                     </div>
                 </div>
 
                 <div className="order-summary flex">
                     <span>Total order: </span>
-                    <span>Rp. {props.totalOrder}</span>
+                    <span>{curs} {props.totalOrder}</span>
                 </div>
             </div>
         </div>

@@ -1,10 +1,8 @@
 import React, { Fragment } from 'react';
-import './Single.css';
 import Wrapper from '../../organism/Wrapper';
 import API from '../../../services';
 import ProductItem from '../../../components/molecules/ProductItem';
 import ProductFooter from '../../../components/molecules/ProductFooter';
-import { REST } from '../../../config/REST';
 import Loader from '../../../components/molecules/Loader';
 import { connect } from 'react-redux';
 
@@ -19,6 +17,11 @@ class Single extends React.Component {
 
     componentDidMount() {
         this.getData();
+    }
+
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
     }
 
     async getData() {
@@ -40,10 +43,11 @@ class Single extends React.Component {
             this.state.isloading ? <Loader /> : <Wrapper className="margin-bottom-80" container={
                 <Fragment>
                     <ProductItem
-                        imgUrl={REST.server.url + 'assets/img/product/' + this.state.product.image}
+                        imgUrl={this.state.product.image}
                         name={this.state.product.name}
                         desc={this.state.product.description}
                         price={this.state.product.price}
+                        curs={this.state.product.curs}
                     />
                     <ProductFooter
                         ngClick={() => this.addToCart(this.state.product)}

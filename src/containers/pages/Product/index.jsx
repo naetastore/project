@@ -1,8 +1,7 @@
 import React from 'react';
-import { REST } from '../../../config/REST';
 import API from '../../../services';
 import { connect } from 'react-redux';
-import Categories from '../../organism/Categories';
+import Categories from '../../organism/Product/Categories';
 import Wrapper from '../../organism/Wrapper';
 import Loader from '../../../components/molecules/Loader';
 
@@ -16,15 +15,20 @@ class Product extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(() => this.getData(), 100);
+        this.getData();
+    }
+
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
     }
 
     async getData() {
-        if (this.props.globalData.length) return;
-        console.log('request');
+        if (this.props.globalData && this.props.globalData.length > 0) return;
         const {
             setGlobalData, setCategoriesData, setProductData
         } = this.props;
+
         this.setState({ isloading: true });
 
         const { APIRequest } = this;
@@ -66,10 +70,8 @@ class Product extends React.Component {
                         products={this.props.productData}
                         ngClickProduct={id => this.moveToSingle(id)}
                         ngClickCatalog={(id, name) => this.moveToCatalog(id, name)}
-                        imgUrl={REST.server.url + 'assets/img/product/'}
                     />
-                }
-                />
+                } />
         );
     }
 

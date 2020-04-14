@@ -1,25 +1,26 @@
 import React from 'react';
-import './Admin.css';
 import API from '../../../services';
 import Wrapper from '../../organism/Wrapper';
 import Statistic from '../../organism/Statistics';
-// import ListActivities from '../../../components/molecules/ListActivities';
 import { connect } from 'react-redux';
+import { Session } from '../../../config/Session';
 
 class Admin extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            statistic: {},
-            // activities: []
+            statistic: {}
         }
     }
 
     componentDidMount() {
-        if (!this.props.isAuthenticated) {
-            this.props.history.push('/auth?account/admin');
+        const session = Session.get();
+        if (!session) {
+            this.props.history.push('/auth?account/myprofile');
             return;
+        } else {
+            this.setSession(session);
         }
         document.title = 'Dashboard';
         this.requestToAPI();
@@ -27,17 +28,25 @@ class Admin extends React.Component {
 
     componentWillUnmount() {
         document.title = 'Naeta Store';
+        const controller = new AbortController();
+        controller.abort();
+    }
+
+    setSession = userdata => {
+        this.props.setAuthenticated(true);
+        if (this.props.inSession) {
+            return;
+        }
+        this.props.setSession(userdata);
     }
 
     requestToAPI = async () => {
         try {
             const { username, password } = this.props.inSession;
             const statistic = await API.GET('statistic', { username, password });
-            // const activities = await API.GET('activities', { username, password });
 
             this.setState({
                 statistic: statistic.data,
-                // activities: activities.data.activities
             });
         } catch (err) {
             console.error(err);
@@ -64,11 +73,6 @@ class Admin extends React.Component {
                         visitor={this.state.statistic.visitor}
                         newVisitor={this.state.statistic.newVisitor}
                     />
-
-                    {/* <ListActivities
-                        data={this.state.activities}
-                        ngClick={(id) => this.moveToProduct(id)}
-                    /> */}
                 </div>
             } />
         );
@@ -81,4 +85,9 @@ const mapStateToProps = state => ({
     isAuthenticated: state.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Admin);
+const reduxDispatch = dispatch => ({
+    setSession: userdata => dispatch({ type: "SET_SESSION", userdata }),
+    setAuthenticated: value => dispatch({ type: 'IS_AUTHENTICATED', value })
+});
+
+export default connect(mapStateToProps, reduxDispatch)(Admin);

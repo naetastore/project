@@ -9,32 +9,51 @@ nav.main-menu.navbar {
     z-index: 1;
     width: 100%;
     box-shadow: 0px 5px 15px 6px #0000000d;
+    height: 60px;
 }
 
-a.nav-link.active:first-child {
-    border-top-left-radius: 15px;
+a.nav-link:hover, div.nav-link:hover {
+    background-color: #9e9e9e36;
 }
-a.nav-link.active:last-child {
-    border-top-right-radius: 15px;
-}
-
 a.nav-link.active {
-    background-color: #5468ff0d;
     color: #5468ffcc;
 }
 
-a.nav-link {
+a.nav-link.nav-account, div.nav-link {
+    border-radius: 50%;
+}
+
+a.nav-link.nav-account:hover {
+    background-color: #9e9e9e36;
+}
+
+a.nav-link.active.nav-account {
+    background-color: #9e9e9e36;
+}
+
+a.nav-link:hover {
+    background-color: #9e9e9e36;
+}
+
+div.nav-link .menu:hover {
+    cursor: pointer;
+}
+
+div.nav-link:hover {
+    cursor: pointer;
+}
+
+a.nav-link, div.nav-link {
     color: #979da6;
     font-weight: 600;
-    width: 56px;
-    flex: auto;
     display: flex;
     flex-direction: column;
     padding: 0.4rem;
     transition: .2s color,
-                .1s background-color, 
+    .1s background-color, 
                 .1s ease-in-out;
-    height: 60px;
+    margin: 0px auto;
+    border-radius: 50%;
 }
 
 nav.main-menu a.nav-link:hover {
@@ -50,4 +69,39 @@ nav.main-menu a.nav-link:hover {
 .menu-icon {
     margin: auto;
     height: 25px;
+}
+
+div.context-view .menu {
+    font-size: 17px;
+    padding: 5px 20px;
+    margin: 1px 0px;
+    font-weight: 400;
+    color: #5468FF;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+div.context-view .menu:hover {
+    background-color: #EAEAEA;
+    cursor: pointer;
+}
+
+div.context-view .menu-top {
+    padding: 8px 8px 0px 8px;
+}
+
+div.context-view .menu-bottom {
+    padding: 0px 8px 8px 8px;
+}
+
+div.context-view {
+    text-align: left;
+    position: absolute;
+    bottom: 70px;
+    right: 10px;
+    background-color: #ffffffed;
+    width: calc(100%*.4);
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    border-radius: 8px;
 }

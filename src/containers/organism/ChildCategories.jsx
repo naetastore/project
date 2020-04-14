@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { REST } from '../../config/REST';
-import ChildHeading from '../../components/molecules/ChildHeading';
+import ChildHeading from '../../components/molecules/Product/ChildHeading';
 import ProductItem from '../../components/molecules/ProductItem';
 
 function ChildCategories(props) {
@@ -24,10 +23,11 @@ function ChildCategories(props) {
                                         type="product-item-min"
                                         key={p.id}
                                         ngClick={() => props.ngClickProduct(p.id)}
-                                        imgUrl={REST.server.url + 'assets/img/product/' + p.image}
+                                        imgUrl={p.image}
                                         name={p.name}
                                         desc={p.description}
-                                        price={p.price} />
+                                        price={p.price}
+                                        curs={p.curs} />
                                     : <Fragment key={p.id}></Fragment>
                             )}
                             {/* End ngRepeat Product */}
@@ -39,6 +39,11 @@ function ChildCategories(props) {
             // End ngRepeat Category
         )
     );
+}
+
+ChildCategories.defaultProps = {
+    categories: [],
+    products: []
 }
 
 export default ChildCategories;

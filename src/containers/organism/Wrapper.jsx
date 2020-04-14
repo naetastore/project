@@ -3,8 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const Wrapper = (props) => {
     return (
-        <Container>
-            <Row className={props.className}>
+        <Container className={props.className}>
+            <Row>
                 <Col xs={12}>
                     {props.container}
                 </Col>

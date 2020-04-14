@@ -4,10 +4,14 @@ import './ProductItem.css';
 const ProductItem = (props) => {
     return (
         <div className={props.type}>
-            <img src={props.imgUrl} alt="product" className="product-image" onClick={props.ngClick} />
-            <div className="product-title" onClick={props.ngClick}>{props.name}</div>
-            <div className="product-desc">{props.desc}</div>
-            <div className="product-price">Rp. {props.price}</div>
+            <div className="img">
+                <img src={props.imgUrl} alt="product" className="product-image" onClick={props.ngClick} />
+            </div>
+            <div className="body">
+                <div className="product-title" onClick={props.ngClick}>{props.name}</div>
+                <div className="product-desc">{props.desc}</div>
+                <div className="product-price">{props.curs} {props.price}</div>
+            </div>
         </div>
     );
 }

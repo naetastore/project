@@ -1,0 +1,120 @@
+div.notif-list-group.readed-1 {
+    background-color: transparent;
+}
+div.notif-list-group.readed-0 {
+    background-color: #FFF;
+}
+
+div.notif-list-group {
+    background-color: #FFF;
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    margin-bottom: 10px;
+    padding: 20px 15px;
+    display: flex;
+    transition: .1s ease-in-out background-color;
+}
+
+div.notif-list-group.hoverable:hover {
+    cursor: pointer;
+    background-color: rgba(0, 227, 208, 0.212);
+    /* animation: 1s cubic-bezier(0.23, 1, 0.320, 1) move; */
+}
+
+@keyframes move {
+    0% {
+        position: relative;
+        left: 0;
+    }
+    10% {
+        position: relative;
+        right: 10%;
+    }
+    100% {
+        position: relative;
+        right: 100%;
+    }
+}
+
+div.notif-list-group div.notif-details {
+    width: 100%;
+}
+
+div.notif-list-group div.notif-details div.notif-subject:hover {
+    cursor: pointer;
+}
+
+div.notif-list-group.readed-0 div.notif-details div.notif-subject,
+div.notif-list-group.readed-1 div.notif-details div.notif-subject {
+    color: #5468FF;
+}
+
+div.notif-list-group div.notif-details div.notif-time {
+    color: #777;
+}
+
+div.notif-list-group div.notif-action img.icon {
+    width: 17px;
+    float: right;
+    margin-left: 10px;
+}
+
+div.notif-list-group .notif-action {
+    margin: auto;
+}
+
+/* Details Styling */
+div.notif-list-group div.notif-show-details {
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 10px;
+    animation: .1s ease-in-out fade;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 50%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-time {
+    color: #777;
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-subject {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #5468FF;
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-message {
+    letter-spacing: 1.1px;
+    word-spacing: 3.5px;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-helptopics {
+    color: #5468FF;
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-action:hover {
+    cursor: pointer;
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-action span:first-child {
+    margin-right: 15px;
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-action .delete {
+    color: #DC3545;
+}
+
+div.notif-list-group div.notif-show-details div.notif-details-action {
+    float: right;
+    color: #5468FF;
+}
+/* End Detail Styling */

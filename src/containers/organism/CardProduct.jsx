@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import './CardProduct.css';
 import ProductItem from '../../components/molecules/ProductItem';
 import ProductFooter from '../../components/molecules/ProductFooter';
 
@@ -10,10 +9,11 @@ const CardProduct = (props) => {
                 d.category_id === props.categoryId
                     ? <div className="product" key={d.id}>
                         <ProductItem
-                            imgUrl={props.imgUrl + d.image}
+                            imgUrl={d.image}
                             name={d.name}
                             desc={d.description}
                             price={d.price}
+                            curs={d.curs}
                         />
                         <ProductFooter
                             ngClick={() => props.ngClick(d)}

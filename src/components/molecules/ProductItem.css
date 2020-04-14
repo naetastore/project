@@ -40,8 +40,8 @@ div.product-item-min {
     border-radius: 6px;
     width: max-content;
     display: inline-block;
-    margin: 0px 5px;
-    padding: 7px;
+    margin-right: 10px;
+    padding: 10px;
     border-radius: 15px;
     text-align: center;
 }
@@ -51,7 +51,8 @@ div.product-item-min img.product-image:hover {
 }
 
 div.product-item-min img.product-image {
-    border-radius: 6px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     height: 140px;
 }
 
@@ -73,6 +74,8 @@ div.product-item-min div.product-desc {
     font-weight: 700;
     color: #5468FF;
     text-align: left;
+    width: 140px;
+    overflow-x: hidden;
 }
 div.product-item-min div.product-price {
     text-align: right;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { REST } from '../../../config/REST';
 import { connect } from 'react-redux';
 import CardProduct from '../../organism/CardProduct';
 import API from '../../../services';
@@ -17,7 +16,12 @@ class Catalog extends Component {
     }
 
     componentDidMount() {
-        setTimeout(() => this.getData(), 100);
+        this.getData();
+    }
+
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
     }
 
     async getData() {
@@ -61,7 +65,6 @@ class Catalog extends Component {
                         <CardProduct
                             categoryId={this.props.match.params.id}
                             data={this.props.productData}
-                            imgUrl={REST.server.url + 'assets/img/product/'}
                             ngClick={this.addToCart}
                         />
                     }

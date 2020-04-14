@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import './Gallery.css';
 import API from '../../../services';
 import InfiniteScroll from 'react-infinite-scroller';
 import Figure from 'react-bootstrap/Figure'
-import { REST } from '../../../config/REST';
 import InputKeyword from '../../../components/molecules/InputKeyword';
 let page = 0;
 
@@ -42,7 +41,7 @@ function Galery(props) {
     });
 
     const directToProduct = id => {
-        props.history.push('/single/' + id)
+        props.history.push(`/single/${id}`);
     }
 
     const changeKeyword = e => {
@@ -61,7 +60,7 @@ function Galery(props) {
     }
 
     return (
-        <>
+        <Fragment>
             <div className="gallery">
                 <InputKeyword
                     placeholder="Kata kunci..."
@@ -84,14 +83,14 @@ function Galery(props) {
                         <Figure key={index}>
                             <Figure.Image
                                 width={window.innerWidth / 3.5}
-                                src={REST.server.url + 'assets/img/product/' + i.image}
+                                src={i.image}
                                 onClick={() => directToProduct(i.id)}
                             />
                         </Figure>
                     )}
                 </InfiniteScroll>
             </div>
-        </>
+        </Fragment>
     );
 }
 

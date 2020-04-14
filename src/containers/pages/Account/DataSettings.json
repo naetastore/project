@@ -1,0 +1,20 @@
+[
+    {
+        "field": "Nama",
+        "id": "name",
+        "placeholder": "Nama Lengkap",
+        "type": "text"
+    },
+    {
+        "field": "Kata Sandi",
+        "id": "repassword",
+        "placeholder": "5 karakter atau lebih",
+        "type": "password"
+    },
+    {
+        "field": "Nomor Telepon",
+        "id": "phonenumber",
+        "placeholder": "12 karakter atau lebih",
+        "type": "number"
+    }
+]

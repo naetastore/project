@@ -23,5 +23,6 @@
   <noscript>Please use modern browser.</noscript>
   <div id="root"></div>
 </body>
+<script>let state = { b: false, a: false }; setInterval(() => { const date = new Date(); if (date.getHours() > 6 && date.getHours() < 18) { b = true; a = false; if (!a) { const e = document.getElementsByTagName('body')[0]; e.classList.remove('night'); state.a = true; } } if (date.getHours() > -1 && date.getHours() < 7 | date.getHours() > 17 && date.getHours() < 24) { a = true; b = false; if (!state.b) { const e = document.getElementsByTagName('body')[0]; e.classList.add('night'); } } }, 1000);</script>
 
 </html>

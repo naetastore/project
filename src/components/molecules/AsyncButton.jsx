@@ -1,18 +1,19 @@
 import React from 'react';
 import './AsyncButton.css';
 import Spinner from 'react-bootstrap/Spinner';
-import Arrow from '../../assets/img/icon/right-arrow.svg';
+import rightArrow from '../../assets/img/icon/right-arrow.svg';
 
 const AsyncButton = (props) => {
     return (
         <button
             type={props.type}
             className="btn primary"
-            disabled={props.isLoading}
+            disabled={props.isLoading | props.disabled}
             onClick={props.ngClick}
         >
             <div className="box-title">
-                {props.isLoading ?
+                {props.isLoading
+                    ?
                     <Spinner
                         as="span"
                         animation="grow"
@@ -35,7 +36,7 @@ AsyncButton.defaultProps = {
     isLoading: false,
     label: "no label",
     type: "submit",
-    icon: Arrow
+    icon: rightArrow
 }
 
 export default AsyncButton;

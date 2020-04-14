@@ -1,5 +1,3 @@
-import { REST } from "../../REST";
-
 const globalState = {
     global: [],
     banner: [],
@@ -10,19 +8,11 @@ const globalState = {
     isAuthenticated: false,
     inSession: {},
     addedItems: [],
-    total: 0,
-    paymentMethod: {},
-    userData: null
+    total: 0
 }
 
 export const reducer = (state = globalState, action) => {
     switch (action.type) {
-        case "SET_USERDATA":
-            return {
-                ...state,
-                userData: action.data
-            }
-
         case "SET_SUGGESTED":
             return {
                 ...state,
@@ -76,14 +66,7 @@ export const reducer = (state = globalState, action) => {
             return {
                 ...state,
                 addedItems: [],
-                total: 0,
-                paymentMethod: {}
-            }
-
-        case "PAYMENT_METHOD":
-            return {
-                ...state,
-                paymentMethod: action.method
+                total: 0
             }
 
         case "UPDATE_SESSION":
@@ -121,6 +104,19 @@ export const reducer = (state = globalState, action) => {
             break;
 
         case "IS_AUTHENTICATED":
+            if (action.value === false) {
+                const session = window.sessionStorage;
+                session.removeItem('naetastore_name');
+                session.removeItem('naetastore_pass');
+                session.removeItem('naetastore_avatar');
+                session.removeItem('naetastore_role');
+
+                return {
+                    ...state,
+                    isAuthenticated: false,
+                    inSession: {}
+                }
+            }
             return {
                 ...state,
                 isAuthenticated: action.value
@@ -128,7 +124,7 @@ export const reducer = (state = globalState, action) => {
 
         case "ADD_TO_CART":
             let price = action.product.price;
-            price = price.split(',');
+            price = price.split('.');
             let result = "";
             price.forEach(n => result += n);
             price = Number(result);
@@ -139,7 +135,8 @@ export const reducer = (state = globalState, action) => {
                 'price': price,
                 'qty': 1,
                 'stock': action.product.qty,
-                'image': REST.server.url + 'assets/img/product/' + action.product.image
+                'image': action.product.image,
+                'curs': action.product.curs
             }
 
             const existed = state.addedItems.find(product => product.id === action.product.id);

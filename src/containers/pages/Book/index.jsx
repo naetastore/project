@@ -10,13 +10,17 @@ class Book extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isloading: false,
-            loaderDisplay: ''
+            isloading: false
         }
     }
 
     componentDidMount() {
         setTimeout(() => this.getData(), 100);
+    }
+
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
     }
 
     async getData() {
@@ -35,7 +39,7 @@ class Book extends React.Component {
         setCategoriesData(categories);
         setProductData(products);
 
-        this.setState({ loaderDisplay: 'none', isloading: false });
+        this.setState({ isloading: false });
     }
 
     async getDataAPI(path, params) {
@@ -48,30 +52,27 @@ class Book extends React.Component {
     }
 
     moveToProduct = id => {
-        this.props.history.push('/single/' + id);
+        this.props.history.push(`/single/${id}`);
     }
 
     moveToCatalog = id => {
-        this.props.history.push('/catalog/' + id);
+        this.props.history.push(`/catalog/${id}`);
     }
 
     render() {
         return (
             this.state.isloading
-                ? <Loader display={this.state.loaderDisplay} />
+                ? <Loader />
                 :
-                <BookTemplate
-                    dataMenu={this.props.globalData}
-                    container={
-                        <ChildCategories
-                            categories={this.props.categoriesData}
-                            products={this.props.productData}
-                            globalId={this.props.match.params.id}
-                            ngClickCategory={this.moveToCatalog}
-                            ngClickProduct={this.moveToProduct}
-                        />
-                    }
-                />
+                <BookTemplate dataMenu={this.props.globalData} container={
+                    <ChildCategories
+                        categories={this.props.categoriesData}
+                        products={this.props.productData}
+                        globalId={this.props.match.params.id}
+                        ngClickCategory={this.moveToCatalog}
+                        ngClickProduct={this.moveToProduct}
+                    />
+                } />
         );
     }
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import './Search.css';
+import './InputKeyword.css';
 import Search from '../../assets/img/icon/search-icon.svg'
 
 const InputKeyword = props => {
     return (
-        <div className="input">
+        <div className="input-keyword">
             <input
                 autoComplete="off"
                 type="text"

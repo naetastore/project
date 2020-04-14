@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
-import { REST } from '../../../config/REST';
 import API from '../../../services';
 import { connect } from 'react-redux';
-import RootTemplate from '../../templates/RootTemplate';
+import RootTemplate from '../../templates/Root';
 import Loader from '../../../components/molecules/Loader';
 import Progress from '../../../components/molecules/Progress';
-import Options from '../../../components/molecules/Options';
-import Suggested from '../../organism/Suggested';
+import Options from '../../../components/molecules/Root/Options';
+import Suggested from '../../organism/Root/Suggested';
 import Title from '../../../components/atoms/Title';
 
 class Root extends React.Component {
@@ -22,9 +21,14 @@ class Root extends React.Component {
     componentDidMount() {
         this.getData();
     }
-    getData = async () => {
-        if (this.props.suggestedData.length) return;
 
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
+    }
+
+    getData = async () => {
+        if (this.props.suggestedData && this.props.suggestedData.length > 0) return;
         const {
             setSuggestedData,
             setGlobalData, setCategoriesData, setProductData
@@ -45,13 +49,13 @@ class Root extends React.Component {
         setCategoriesData(categories); setProgress(n);
         setProductData(products); setProgress(n);
 
-        setTimeout(() => this.setState({ isloading: false }), 200);
+        setTimeout(() => this.setState({ isloading: false }), 500);
     }
 
-    setProgress = n => {
-        let value = Math.round(100 / n);
+    setProgress = async n => {
+        let value = 100 / n;
         value += this.state.progress
-        this.setState({ progress: value });
+        await this.setState({ progress: value });
     }
 
     async getDataToAPI(path, params) {
@@ -68,7 +72,7 @@ class Root extends React.Component {
     }
 
     moveToSingle = id => {
-        this.props.history.push('/single/' + id);
+        this.props.history.push(`/single/${id}`);
     }
 
     render() {
@@ -80,26 +84,21 @@ class Root extends React.Component {
                     <Progress percentase={this.state.progress} />
                 </Fragment>
                 :
-                <RootTemplate
-                    andiProps={this.props}
-                    container={
-                        <Fragment>
-                            <Title titlend="Style" />
-                            <Options
-                                data={this.props.globalData}
-                                imgloc={REST.server.url + 'assets/img/global/'}
-                                ngClick={this.moveToCategory}
-                            />
+                <RootTemplate andiProps={this.props} container={
+                    <Fragment>
+                        <Title titlend="Style" />
+                        <Options
+                            data={this.props.globalData}
+                            ngClick={this.moveToCategory}
+                        />
 
-                            <Title titlend="Disarankan" />
-                            <Suggested
-                                data={this.props.suggestedData}
-                                ngClick={id => this.moveToSingle(id)}
-                                imgloc={REST.server.url + 'assets/img/product/'}
-                            />
-                        </Fragment>
-                    }
-                />
+                        <Title titlend="Disarankan" />
+                        <Suggested
+                            data={this.props.suggestedData}
+                            ngClick={id => this.moveToSingle(id)}
+                        />
+                    </Fragment>
+                } />
         );
     }
 

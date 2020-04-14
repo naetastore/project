@@ -12,3 +12,76 @@ div.settings div.setting-group {
 div.settings div.setting-group input[type="checkbox"] {
     margin-left: 20px;
 }
+
+div.setting-list-group img.m-icon {
+    width: 55px;
+    height: 55px;
+    padding: 7px;
+    background-color: #AEB8FF;
+}
+
+div.setting-list-group {
+    background-color: #FFF;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    display: flex;
+    transition: .1s ease-in-out background-color;
+}
+
+div.setting-list-group div.setting-details {
+    width: 100%;
+}
+
+div.setting-list-group.readed-0 div.setting-details div.setting-name,
+div.setting-list-group.readed-1 div.setting-details div.setting-name {
+    color: #5468FF;
+}
+
+div.setting-list-group div.setting-details div.setting-desc {
+    color: #777;
+}
+
+div.setting-list-group div.setting-action img.icon {
+    width: 17px;
+    float: right;
+    margin-left: 10px;
+}
+
+div.setting-list-group .setting-action {
+    margin: auto;
+}
+
+/* Details Styling */
+div.setting-show-details {
+    background-color: #FFF;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    animation: .1s ease-in-out fade;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 50%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+div.setting-show-details div.setting-details-action:hover {
+    cursor: pointer;
+}
+
+/* div.setting-show-details div.setting-details-action span:first-child {
+    margin-right: 15px;
+} */
+
+div.setting-show-details div.setting-details-action {
+    float: right;
+    color: #5468FF;
+}
+/* End Detail Styling */

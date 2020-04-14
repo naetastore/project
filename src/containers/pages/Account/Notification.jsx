@@ -1,7 +1,8 @@
 import React from 'react';
-import LNotif from '../../../components/molecules/LNotif';
+import LNotif from './LNotif';
 import API from '../../../services';
 import { connect } from 'react-redux';
+import { Session } from '../../../config/Session';
 
 class Notification extends React.Component {
     constructor(props) {
@@ -12,12 +13,29 @@ class Notification extends React.Component {
         }
     }
 
-    componentDidMount() {
-        if (!this.props.isAuthenticated) {
-            this.props.history.push('/auth?account/notification');
+    async componentDidMount() {
+        const path = window.location.pathname;
+        const session = Session.get();
+        if (!session) {
+            this.props.history.push(`/auth?${path}`);
             return;
+        } else {
+            await this.setSession(session);
         }
         this.getData();
+    }
+
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
+    }
+
+    setSession = userdata => {
+        this.props.setAuthenticated(true);
+        if (this.props.inSession) {
+            return;
+        }
+        this.props.setSession(userdata);
     }
 
     getData = async () => {
@@ -70,4 +88,9 @@ const mapStateToProps = state => ({
     isAuthenticated: state.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Notification);
+const reduxDispatch = dispatch => ({
+    setSession: userdata => dispatch({ type: "SET_SESSION", userdata }),
+    setAuthenticated: value => dispatch({ type: 'IS_AUTHENTICATED', value })
+});
+
+export default connect(mapStateToProps, reduxDispatch)(Notification);

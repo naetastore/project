@@ -18,8 +18,4 @@ const BoxAction = props => {
     );
 }
 
-BoxAction.defaultProps = {
-    label: '>'
-}
-
 export default BoxAction;

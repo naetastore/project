@@ -11,7 +11,7 @@ const server = {
 
     'apikey': {
         'name': 'apikey',
-        'key': 'andinaeta4328'
+        'key': '0888c8ogo8wco84kko4so404w44sksk44084wgsc'
     }
 }
 export const REST = { server }

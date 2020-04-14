@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import API from '../../../services';
 import LOrder from './LOrder';
+import { Session } from '../../../config/Session';
 
 class Order extends Component {
 
@@ -14,12 +15,29 @@ class Order extends Component {
         }
     }
 
-    componentDidMount() {
-        if (!this.props.isAuthenticated) {
-            this.props.history.push('/auth?account/order');
+    async componentDidMount() {
+        const path = window.location.pathname;
+        const session = Session.get();
+        if (!session) {
+            this.props.history.push(`/auth?${path}`);
             return;
+        } else {
+            await this.setSession(session);
         }
         this.getData();
+    }
+
+    componentWillUnmount() {
+        const controller = new AbortController();
+        controller.abort();
+    }
+
+    setSession = userdata => {
+        this.props.setAuthenticated(true);
+        if (this.props.inSession) {
+            return;
+        }
+        this.props.setSession(userdata);
     }
 
     async getData() {
@@ -29,9 +47,10 @@ class Order extends Component {
         try {
             const response = await API.GET('order', { username, password });
             const order = response.data.order;
-            this.setState({ order });
+            const uiConfig = response.data.uiconfig;
+            this.setState({ order, uiConfig });
         } catch (err) {
-            console.error(err.response);
+            console.error(err);
             this.setError(err.message);
         }
 
@@ -50,7 +69,7 @@ class Order extends Component {
     updateState = order => {
         this.setState({ order });
         if (order.length < 1) {
-            this.setError('not found.');
+            this.setError('no data to display');
         }
     }
 
@@ -62,7 +81,8 @@ class Order extends Component {
                     data={this.state.order}
                     inSession={this.props.inSession}
                     moveToSingle={this.moveToSingle}
-                    updateState={this.updateState}
+                    updateStateFunc={this.updateState}
+                    uiConfig={this.state.uiConfig}
                 />
             </div>
         );
@@ -75,4 +95,9 @@ const mapStateToProps = state => ({
     isAuthenticated: state.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Order);
+const reduxDispatch = dispatch => ({
+    setSession: userdata => dispatch({ type: "SET_SESSION", userdata }),
+    setAuthenticated: value => dispatch({ type: 'IS_AUTHENTICATED', value })
+})
+
+export default connect(mapStateToProps, reduxDispatch)(Order);

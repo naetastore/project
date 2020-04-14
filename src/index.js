@@ -9,10 +9,11 @@ import { store } from './config/redux/store';
 import { Provider } from 'react-redux';
 
 import API from './services';
+
 function Getuserinformation() {
-    if (window.location.hostname === "localhost") {
-        return false;
-    }
+    // if (window.location.hostname === "localhost") {
+    //     return false;
+    // }
     let a = window.navigator;
     let geoLocation = a.geolocation.getCurrentPosition(res => res);
 
@@ -24,6 +25,7 @@ function Getuserinformation() {
         'geoLocation': geoLocation
     }
     API.POST('client', client);
+
     return true;
 }
 

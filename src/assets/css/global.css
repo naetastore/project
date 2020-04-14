@@ -1,3 +1,325 @@
+body.night * {
+    transition: 2s ease-in-out background-color,
+                2s color;
+}
+
+/* NIGHT */
+body.night {
+    font-family: "SF Display";
+    margin: auto;
+    background-color: #171531;
+}
+
+body.night div.header .welcome {
+    color: #FFF;
+}
+
+body.night .input-keyword, body.night .input {
+    background-color: #232148;
+    color: #FFF;
+}
+
+body.night .input-keyword input {
+    color: #FFF;
+}
+
+body.night input {
+    background-color: #232148;
+    color: #FFF;
+}
+body.night .input {
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night input::placeholder {
+    color: rgb(204, 204, 204);
+}
+
+body.night .input button.search {
+    box-shadow: 0px 5px 15px 6px #5468ff2e;
+}
+
+body.night div.header div.apps div.links .menu {
+    background-color: #232148;
+    color: #FFF;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+
+body.night div.title span {
+    color: #FFF;
+}
+
+body.night div.options {
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night div.option {
+    background-color: #232148;
+    color: #FFF;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night div.option .option-title {
+    color: #FFF;
+}
+
+body.night div.suggested {
+    color: #FFF;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+
+body.night div.product-item-min {
+    background-color: #232148;
+    color: #FFF;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night div.product-item-min div.product-title {
+    color: #FFF;
+}
+
+body.night nav.main-menu.navbar {
+    background-color: #171531;
+    color: #FFF;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+
+body.night .menu-icon.avatar {
+    background-color: #2f2c5c;
+}
+
+body.night div.heading .title {
+    color: #FFF;
+}
+body.night div.desc {
+    color: #EAEAEA;
+}
+
+body.night div.child-heading {
+    background-color: #232148;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night .sbh-title {
+    color: #FFF;
+}
+body.night div.ch-f {
+    background-color: #232148;
+}
+body.night button.direct {
+    background-color: #232148;
+}
+
+body.night div.products.make-it-rounder {
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+
+body.night hr {
+    border-top: 1px solid #1E1B3A;
+}
+
+body.night a.box {
+    background-color: #232148;
+    border: unset;
+    color: #EAEAEA;
+}
+body.night a.box.active {
+    box-shadow: 0px 5px 15px 6px #5468ff2e;
+    background-color: #00E3D1;
+    color: #2f2c5c;
+}
+body.night div.h_ .box {
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+
+body.night div.product-item {
+    background-color: #232148;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night div.product-item div.product-title {
+    color: #FFF;
+}
+body.night div.product-item div.product-price {
+    color: #EAEAEA;
+}
+
+body.night button.btn.primary {
+    box-shadow: 0px 5px 15px 6px #5468ff2e;
+}
+
+body.night div.context-view {
+    background-color: #232148;
+}
+
+body.night div.account-header {
+    background-color: unset;
+    box-shadow: unset;
+    color: #EAEAEA;
+}
+body.night div.account-header div.account div.av-desc .name {
+    color: #FFF;
+}
+
+body.night div.tabs {
+    background-color: #232148;
+}
+body.night div.tabs a:first-child {
+    border-right: 1px solid #1E1B3A;
+}
+body.night div.tabs a:nth-child(2) {
+    border-right: 1px solid #1E1B3A;
+}
+body.night div.tabs a:nth-child(3) {
+    border-right: 1px solid #1E1B3A;
+}
+
+body.night div.tabs a.active {
+    color: #00E3D1;
+}
+
+body.night div.setting-show-details {
+    background-color: #232148;
+}
+
+body.night div.setting-list-group, body.night div.card {
+    background-color: #232148;
+    color: #FFF;
+}
+
+body.night div.setting-list-group img.m-icon {
+    background-color: #5468FF;
+    box-shadow: 0px 5px 15px 6px #5468ff2e;
+}
+
+body.night .alert {
+    background-color: #232148;
+    color: #FFF;
+}
+
+body.night .form-control:focus {
+    background-color: #232148;
+    color: #FFF;
+}
+
+body.night div input.form-control::placeholder {
+    color: #787891;
+}
+
+body.night div.form-guide, body.night div.question {
+    color: #EAEAEA;
+}
+
+body.night .input input.keyword {
+    color: #FFF;
+}
+
+body.night div.search .body .search-title {
+    color: #FFF;
+}
+body.night div.search {
+    background-color: #232148;
+}
+
+body.night div input.form-control {
+    font-weight: 400;
+    color: #FFF;
+    background-color: #232148;
+}
+
+body.night nav.navbar-bottom {
+    background-color: #171531;
+}
+
+body.night .checkout-bottom .text {
+    color: #FFF;
+}
+
+body.night .progress-event {
+    background-color: #232148;
+}
+
+body.night .close {
+    color: #FFF;
+}
+
+body.night div.cart div.cart-list {
+    background-color: #232148;
+}
+body.night div.cart div.cart-list div.product-inf div.product-name {
+    color: #FFF;
+}
+
+body.night div.alert h4 {
+    color: #FFF;
+}
+body.night div.alert-body {
+    color: #EAEAEA;
+}
+
+body.night div.context-view .menu {
+    color: #EAEAEA;
+}
+
+body.night div.form-bill, body.night div.form-user {
+    background-color: #232148;
+}
+
+body.night p {
+    color: #FFF;
+}
+
+body.night div div.card div.card-title {
+    color: #FFF;
+}
+
+body.night div div.card div.card-body {
+    color: #EAEAEA;
+}
+body.night a.nav-link.active {
+    background-color: #00E3D1;
+}
+body.night a.nav-link:hover, body.night div.nav-link:hover {
+    background-color: #00E3D1;
+}
+
+body.night div.account-header div.account img.avatar {
+    background-color: #232148;
+}
+
+body.night div.form-title, body.night div.page-title {
+    color: #FFF;
+}
+
+body.night button.btn.plus, body.night button.btn.minus {
+    box-shadow: 0px 5px 15px 6px #5468ff2e;
+}
+
+body.night div.notif-list-group.readed-0 {
+    background-color: #232148;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night div.notif-list-group.readed-1 {
+    background-color: transparent;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+
+body.night div.notif-list-group {
+    background-color: #232148;
+    box-shadow: 0px 5px 15px 6px #15142F;
+}
+body.night div.notif-list-group div.notif-show-details div.notif-details-message {
+    color: #FFF;
+}
+
+body.night div.order-confirm {
+    background-color: #232148;
+    box-shadow: 0px 5px 15px 6px #15142F;
+    color: #FFF;
+}
+
+/* END NIGHT */
+
+body {
+    font-family: "SF Display";
+    margin: auto;
+    background-color: #F4F5F9;
+}
+
 /* Reguler */
 @font-face {
     font-family: "SF Display";
@@ -14,37 +336,98 @@
 
 /* Jangan diedit bagian form styling */
 /* Form styling */
-div.form-title {
-    margin-top: 20px;
-    font-size: 20px;
+.alert.alert-success.alert-fixed-top {
+    border: 2px solid #28a745;
+}
+
+.alert.alert-danger.alert-fixed-top {
+    border: 2px solid #dc3545;
+}
+
+.alert.alert-fixed-top {
+    position: fixed;
+    top: 0;
+    animation: .3s fade;
+    background-color: #000000d1;
+    color: #FFF;
     text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.2px;
-    font-weight: 500;
+    left: 10px;
+}
+
+@keyframes fade {
+    0% { opacity: 0%;}
+    100% { opacity: 100%;}
+}
+
+div.form-title, div.page-title {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    text-align: center;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    color: #313C4E;
+}
+
+div.form-guide {
+    margin: 5px auto;
+    max-width: 70%;
+    text-align: center;
+    color: #39425B;
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+}
+
+form {
+    margin: 35px 10px 0px 10px;
+}
+
+form div.footer {
+    margin-top: 35px;
+    text-align: center;
+    letter-spacing: 0.3px;
+    font-size: 1.1rem;
+}
+
+form div.footer a {
+    text-decoration: none;
+}
+
+div.footer:not(a) {
+    color: #39425B;
 }
 
 button[type=submit] {
     width: 100%;
-    margin-top: 20px;
 }
 
 div.form-group span {
     color: #74788C;
 }
 
+div.form-group>label:not(.form-check-label) {
+    margin-bottom: 8px;
+}
+
+div.form-group .form-check-label {
+    padding-bottom: 10px;
+}
+div.form-group>label:first-child {
+    padding-top: 10px;
+}
+
 div.form-group {
-    padding: 20px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
     margin-bottom: unset;
 }
 
 div.form-group:last-child {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 input.form-control::placeholder {
     font-weight: 600;
     color: #D3D6DB;
-    font-size: 20px;
+    font-size: 21px;
     letter-spacing: 0.2px;
 }
 
@@ -56,7 +439,7 @@ input.form-control:focus {
 input.form-control {
     padding: unset;
     font-weight: 600;
-    font-size: 22px;
+    font-size: 21px;
     border: none;
     color: #2B324E;
 }
@@ -74,11 +457,6 @@ label.form-check-label {
 /* End form styling */
 
 /* Jangan Edit Lagi */
-body {
-    font-family: "SF Display";
-    margin: auto;
-    background-color: #F4F5F9;
-}
 
  body, nav.navbar{
     max-width: 414px;
@@ -186,6 +564,11 @@ button.close {
     top: 2px;
     right: 5%;
     outline: none;
+}
+
+div.g-mx-25 {
+    margin-left: 25px;
+    margin-right: 25px;
 }
 /* END NEW LINE */
 
