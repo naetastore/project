@@ -69,5 +69,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 =======
 # andinaeta.github.io
-Aplikasi Shoping Online.
 >>>>>>> de7b2414b584565431bb24546fce0ebbfa45d74f
