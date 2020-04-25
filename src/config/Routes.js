@@ -1,57 +1,52 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
 
-import Menu from '../components/molecules/Menu';
-import Product from '../containers/pages/Product';
-import Account from '../containers/pages/Account';
-import MyProfile from '../containers/pages/Account/MyProfile';
-import Order from '../containers/pages/Account/Order';
-import Notification from '../containers/pages/Account/Notification';
-import Settings from '../containers/pages/Account/Settings';
-import Catalog from '../containers/pages/Catalog';
-import Root from '../containers/pages/Root';
-import Signup from '../containers/pages/Signup';
-import Auth from '../containers/pages/Auth';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Menu from '../containers/organism/Menu';
+import NavCheckout from '../containers/organism/NavCheckout';
+import Home from '../containers/pages/Home';
 import Book from '../containers/pages/Book';
-import NavB from '../components/molecules/NavB';
-import Cart from '../containers/pages/Cart';
-import Checkout from '../containers/pages/Checkout';
-import MakePayment from '../containers/pages/Checkout/MakePayment';
-import Search from '../containers/pages/Search';
 import Single from '../containers/pages/Single';
-import Admin from '../containers/pages/Admin';
+import Catalog from '../containers/pages/Catalog';
+import Product from '../containers/pages/Product';
+import Search from '../containers/pages/Search';
+import Auth from '../containers/pages/Auth';
+import SignUp from '../containers/pages/SignUp';
+import Account from '../containers/pages/Account';
+import MyProfile from '../containers/pages/MyProfile';
+import Order from '../containers/pages/Order';
+import Notification from '../containers/pages/Notification';
+import Settings from '../containers/pages/Settings';
+import ShoppingCart from '../containers/pages/ShoppingCart';
+import Billing from '../containers/pages/Billing';
+import OrderSummary from '../containers/pages/OrderSummary';
 import Gallery from '../containers/pages/Gallery';
-import About from '../containers/pages/More/About';
-import Disclaimer from '../containers/pages/More/Disclaimer';
 
 function Routes() {
     return (
         <BrowserRouter>
             <Menu />
-            <NavB />
-            <Route path="/" exact component={Root} />
+            <NavCheckout />
+            <Route path="/" exact component={Home} />
+            <Route path="/book/:gid" component={Book} />
+            <Route path="/single/:id" component={Single} />
+            <Route path="/catalog/:cid" component={Catalog} />
+            <Route path="/product" component={Product} />
+            <Route path="/search" component={Search} />
             <Route path="/auth" component={Auth} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/product" exact component={Product} />
+            <Route path="/signup" component={SignUp} />
             <Route path="/account" component={Account} />
             <Route path="/account/myprofile" component={MyProfile} />
             <Route path="/account/order" component={Order} />
             <Route path="/account/notification" component={Notification} />
             <Route path="/account/settings" component={Settings} />
-            <Route path="/book/:id" component={Book} />
-            <Route path="/catalog/:id" component={Catalog} />
-            <Route path="/shoppingcart" component={Cart} />
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/makepayment" component={MakePayment} />
-            <Route path="/search" component={Search} />
-            <Route path="/single/:id" component={Single} />
-            <Route path="/account/admin" component={Admin} />
-            <Route path="/gallery" exact component={Gallery} />
-            <Route path="/disclaimer" exact component={Disclaimer} />
-            <Route path="/about" exact component={About} />
-            <Route path="/notification" exact component={Notification} />
+            <Route path="/shoppingcart" component={ShoppingCart} />
+            <Route path="/billing" component={Billing} />
+            <Route path="/ordersummary" component={OrderSummary} />
+            <Route path="/gallery" component={Gallery} />
+
         </BrowserRouter>
     );
 }
+
 
 export default Routes;

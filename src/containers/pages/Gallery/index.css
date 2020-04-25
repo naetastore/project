@@ -1,0 +1,12 @@
+.figure img {
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.figure {
+    margin: 5px !important;
+}
+
+.mb-80 {
+    margin-bottom: 80px;
+}

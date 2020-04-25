@@ -1,0 +1,53 @@
+.options {
+    box-shadow: 0px 13px 15px 6px #edeef2;
+}
+
+.option {
+    background-color: #fff;
+    border-radius: 15px;
+    margin-right: 15px;
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    width: 180px;
+}
+
+.option img {
+    width: 180px;
+    background-color: #eaeaea;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.option img:hover {
+    cursor: pointer;
+}
+
+.option>.body {
+    padding: 20px;
+}
+
+.option>.body>.desc {
+    font-size: 14px;
+    font-weight: 700;
+    color: #5468FF;
+}
+
+.option>.body>.desc:hover {
+    cursor: pointer;
+}
+
+.option>.body>.title {
+    margin: 15px 0px;
+    color: #393939;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.option>.body>.title:hover {
+    cursor: pointer;
+}
+
+.option>.body>.price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #798086;
+}

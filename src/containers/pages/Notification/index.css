@@ -1,0 +1,54 @@
+.notifications>.details {
+    background-color: #FFF;
+    box-shadow: 0px 5px 15px 6px #0000000d;
+
+    width: 100%;
+    border-radius: 15px;
+    padding: 30px 20px;
+
+    animation: .1s ease-in-out fade;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 50%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+.notifications>.details>.subject {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #5468FF;
+}
+
+.notifications>.details>.message {
+    letter-spacing: 1.1px;
+    word-spacing: 3.5px;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.notifications>.details>.time {
+    color: #777;
+}
+
+.notifications>.details>.action {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.notifications>.details>.action>span:last-child {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.notifications>.details>.action>span.delete {
+    color: #dc3545;
+}
+
+.notifications>.details>.action>span.go-back {
+    color: #5468FF;
+}

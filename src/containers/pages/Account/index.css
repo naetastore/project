@@ -1,0 +1,141 @@
+.header-account {
+    margin: 40px 15px 0px 15px;
+}
+
+.header-account>.account {
+    text-align: center;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin: 0px auto 10px auto;
+}
+
+.header-account>.account>img.avatar {
+    border-radius: 50%;
+    width: 108px;
+    height: 108px;
+    background-color: #F1F0F6;
+    margin: auto;
+    border: 6px solid #fff;
+    box-shadow: 0px 5px 15px 6px #00000005;
+}
+
+.header-account>.account>.user-info>.name {
+    font-weight: 600;
+    font-size: 20px;
+    color: #313C4E;
+}
+
+.tabs {
+    display: flex;
+    border-radius: 15px;
+    background-color: #FFF;
+    height: 45px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.tabs>a {
+    width: 105px;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 11px 8px;
+    position: relative;
+    height: 100%;
+    transition: 0.2s box-shadow;
+}
+
+.tabs>a:not(.active) {
+    color: #666C78;
+}
+
+.tabs>a.active {
+    color: #2C343F;
+    box-shadow: 0px 10px 15px 0px #5468ff12;
+}
+
+.tabs>a:first-child {
+    border-right: 1px solid #F1F0F6;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.tabs>a:nth-child(2) {
+    border-right: 1px solid #F1F0F6;
+}
+
+.tabs>a:nth-child(3) {
+    border-right: 1px solid #F1F0F6;
+}
+
+.tabs>a:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.account-body {
+    margin-top: 20px;
+    margin-bottom: 80px;
+}
+
+
+.account-body>.orders>.list-group,
+.account-body>.notifications>.list-group {
+    margin: 0px 15px;
+    border-bottom: 1px solid #cac7c7;
+    padding: 20px 15px;
+    flex-direction: row;
+    transition: .1s ease-in-out background-color;
+}
+
+.account-body>.orders>.list-group:first-child,
+.account-body>.notifications>.list-group:first-child {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.account-body>.orders>.list-group:last-child,
+.account-body>.notifications>.list-group:last-child {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom: unset;
+}
+
+.account-body>.orders>.list-group.readed-0,
+.account-body>.notifications>.list-group.readed-0 {
+    background-color: #b3e5fc;
+    font-weight: 600;
+}
+
+.account-body>.orders>.list-group.readed-1,
+.account-body>.notifications>.list-group.readed-1 {
+    background-color: #fff;
+}
+
+.account-body>.orders>.list-group>.details,
+.account-body>.notifications>.list-group>.details {
+    width: 90%;
+}
+
+.account-body>.orders>.list-group.readed-1>.details>.time,
+.account-body>.notifications>.list-group.readed-1>.details>.time {
+    color: #777;
+}
+
+.account-body>.orders>.list-group.readed-0>.details>.time,
+.account-body>.notifications>.list-group.readed-0>.details>.time {
+    color: #313c4e;
+}
+
+.account-body>.orders>.list-group>.action,
+.account-body>.notifications>.list-group>.action {
+    width: 10%;
+    margin: auto;
+}
+
+.account-body>.orders>.list-group>.action>.icon,
+.account-body>.notifications>.list-group>.action>.icon {
+    width: 17px;
+    float: right;
+    margin-left: 10px;
+}

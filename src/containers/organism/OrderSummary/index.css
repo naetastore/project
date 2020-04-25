@@ -1,0 +1,52 @@
+.order-summary {
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    animation: .1s ease-in-out fade;
+}
+@keyframes fade {
+    0% {
+        opacity: 50%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+.order-summary>.consumer-name {
+    font-weight: 600;
+    font-size: 18px;
+    color: #2B324E;
+    padding: 20px 20px 10px 20px;
+}
+
+.order-summary>.body {
+    font-size: 17px;
+    color: #2B324E;
+    padding: 10px 20px 10px 20px;
+    flex: 1 1 auto;
+    min-height: 1px;
+}
+
+.order-summary>.body .price {
+    margin-bottom: 10px;
+}
+
+.order-summary>.body .flex {
+    display: flex;
+}
+
+.order-summary>.body .flex>span {
+    width: 50%;
+}
+
+.order-summary>.body .flex>span:last-child {
+    text-align: right;
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "step": "1",
+        "input": {
+            "type": "text",
+            "id": "username",
+            "placeholder": "Nama pengguna"
+        },
+        "page": {
+            "title": "Akun Baru",
+            "guide": "Mulai dengan memasukkan nama pengguna Anda di bawah ini."
+        }
+    },
+    {
+        "step": "2",
+        "input": {
+            "type": "password",
+            "id": "password",
+            "placeholder": "Kata sandi"
+        },
+        "page": {
+            "title": "Buat Kata Sandi",
+            "guide": "Kata sandi Anda harus memiliki setidaknya satu simbol & 5 karakter atau lebih."
+        }
+    }
+]

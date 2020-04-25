@@ -1,92 +1,74 @@
 import React from 'react';
-import './Search.css';
-import InputKeyword from '../../../components/molecules/InputKeyword';
-import LSearch from './LSearch';
+import './index.css';
+import Template from '../../templates/Search';
+import Input from '../../../components/molecules/Input';
+import Button from '../../../components/molecules/Button';
 import API from '../../../services';
 import { connect } from 'react-redux';
-import Wrapper from '../../organism/Wrapper';
 
 class Search extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            keyword: '',
-            search: [],
-            error: ''
-        }
-    }
+    state = {
+        result: []
+    };
 
-    async componentDidMount() {
-        const search = await this.searchChecking();
-        if (search) this.search();
-    }
-
-    componentWillUnmount() {
-        const controller = new AbortController();
-        controller.abort();
+    componentDidMount() {
+        this.searchChecking();
     }
 
     searchChecking = () => {
-        let search = this.props.location.search;
-        search = search.replace('?', '');
-        if (search) {
-            this.setState({ keyword: search });
-            return true;
+        const search = this.props.location.search;
+        const keyword = search.replace('?', '');
+        if (keyword) {
+            this.search(keyword);
         }
     }
 
-    search = async () => {
+    search = async keyword => {
         try {
-            const response = await API.GET('search', { 'q': this.state.keyword });
-            if (response.status === 200) {
-                this.setState({ search: response.data.search });
-                return;
-            };
+            const response = await API.GET('product/search', { 'q': keyword });
+            this.setState({ result: response.data.search });
         } catch (err) {
-            this.setState({ error: err.message });
-            setTimeout(() => this.setState({ error: '' }), 2000);
+            console.error(err);
         }
-    }
-
-    ngChange = e => {
-        this.setState({ keyword: e.target.value });
-    }
-
-    addToCart = s => {
-        this.props.addToCart(s);
-    }
-
-    moveToSingle = id => {
-        this.props.history.push(`/single/${id}`);
     }
 
     render() {
         return (
-            <div className="search-page">
-                <InputKeyword
-                    placeholder="Kata kunci..."
-                    ngChange={this.ngChange}
-                    ngClick={this.search}
-                />
-                <Wrapper container={
-                    this.state.error
-                        ? <div className="alert alert-danger">{this.state.error}</div>
-                        :
-                        <LSearch
-                            data={this.state.search}
-                            addToCart={this.addToCart}
-                            moveToSingle={this.moveToSingle}
-                        />
-                } />
-            </div>
+            <Template
+                header={
+                    <Input
+                        defaultValue={this.props.location.search.replace('?', '')}
+                        placeholder="Kata kunci..." className="mt-4" onClick={this.search} />
+                }
+
+                container={
+                    this.state.result.map((p, i) =>
+                        <div className="search-result" key={i}>
+                            <div className="product">
+                                <div className="img my-auto">
+                                    <img src={p.image} alt="product" />
+                                </div>
+                                <div className="body">
+                                    <div className="desc">{p.description}</div>
+                                    <div className="title">{p.name}</div>
+                                    <div className="price">{p.curs} {p.price}</div>
+                                </div>
+                            </div>
+                            <Button
+                                type="submit"
+                                onClick={() => this.props.addToCart(p)}
+                            >Tambah ke Troli</Button>
+                        </div>
+                    )
+                }
+            />
         );
     }
-
 }
 
-const dispatch = dispatch => ({
-    addToCart: product => dispatch({ type: "ADD_TO_CART", product })
+const reduxDispatch = dispatch => ({
+    addToCart: data => dispatch({ type: 'ADD_TO_CART', data })
 });
 
-export default connect(null, dispatch)(Search);
+export default connect(null, reduxDispatch)(Search);

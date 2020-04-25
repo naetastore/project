@@ -1,365 +1,124 @@
-body.night * {
-    transition: 2s ease-in-out background-color,
-                2s color;
-}
-
-/* NIGHT */
-body.night {
-    font-family: "SF Display";
-    margin: auto;
-    background-color: #171531;
-}
-
-body.night div.header .welcome {
-    color: #FFF;
-}
-
-body.night .input-keyword, body.night .input {
-    background-color: #232148;
-    color: #FFF;
-}
-
-body.night .input-keyword input {
-    color: #FFF;
-}
-
-body.night input {
-    background-color: #232148;
-    color: #FFF;
-}
-body.night .input {
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night input::placeholder {
-    color: rgb(204, 204, 204);
-}
-
-body.night .input button.search {
-    box-shadow: 0px 5px 15px 6px #5468ff2e;
-}
-
-body.night div.header div.apps div.links .menu {
-    background-color: #232148;
-    color: #FFF;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-
-body.night div.title span {
-    color: #FFF;
-}
-
-body.night div.options {
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night div.option {
-    background-color: #232148;
-    color: #FFF;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night div.option .option-title {
-    color: #FFF;
-}
-
-body.night div.suggested {
-    color: #FFF;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-
-body.night div.product-item-min {
-    background-color: #232148;
-    color: #FFF;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night div.product-item-min div.product-title {
-    color: #FFF;
-}
-
-body.night nav.main-menu.navbar {
-    background-color: #171531;
-    color: #FFF;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-
-body.night .menu-icon.avatar {
-    background-color: #2f2c5c;
-}
-
-body.night div.heading .title {
-    color: #FFF;
-}
-body.night div.desc {
-    color: #EAEAEA;
-}
-
-body.night div.child-heading {
-    background-color: #232148;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night .sbh-title {
-    color: #FFF;
-}
-body.night div.ch-f {
-    background-color: #232148;
-}
-body.night button.direct {
-    background-color: #232148;
-}
-
-body.night div.products.make-it-rounder {
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-
-body.night hr {
-    border-top: 1px solid #1E1B3A;
-}
-
-body.night a.box {
-    background-color: #232148;
-    border: unset;
-    color: #EAEAEA;
-}
-body.night a.box.active {
-    box-shadow: 0px 5px 15px 6px #5468ff2e;
-    background-color: #00E3D1;
-    color: #2f2c5c;
-}
-body.night div.h_ .box {
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-
-body.night div.product-item {
-    background-color: #232148;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night div.product-item div.product-title {
-    color: #FFF;
-}
-body.night div.product-item div.product-price {
-    color: #EAEAEA;
-}
-
-body.night button.btn.primary {
-    box-shadow: 0px 5px 15px 6px #5468ff2e;
-}
-
-body.night div.context-view {
-    background-color: #232148;
-}
-
-body.night div.account-header {
-    background-color: unset;
-    box-shadow: unset;
-    color: #EAEAEA;
-}
-body.night div.account-header div.account div.av-desc .name {
-    color: #FFF;
-}
-
-body.night div.tabs {
-    background-color: #232148;
-}
-body.night div.tabs a:first-child {
-    border-right: 1px solid #1E1B3A;
-}
-body.night div.tabs a:nth-child(2) {
-    border-right: 1px solid #1E1B3A;
-}
-body.night div.tabs a:nth-child(3) {
-    border-right: 1px solid #1E1B3A;
-}
-
-body.night div.tabs a.active {
-    color: #00E3D1;
-}
-
-body.night div.setting-show-details {
-    background-color: #232148;
-}
-
-body.night div.setting-list-group, body.night div.card {
-    background-color: #232148;
-    color: #FFF;
-}
-
-body.night div.setting-list-group img.m-icon {
-    background-color: #5468FF;
-    box-shadow: 0px 5px 15px 6px #5468ff2e;
-}
-
-body.night .alert {
-    background-color: #232148;
-    color: #FFF;
-}
-
-body.night .form-control:focus {
-    background-color: #232148;
-    color: #FFF;
-}
-
-body.night div input.form-control::placeholder {
-    color: #787891;
-}
-
-body.night div.form-guide, body.night div.question {
-    color: #EAEAEA;
-}
-
-body.night .input input.keyword {
-    color: #FFF;
-}
-
-body.night div.search .body .search-title {
-    color: #FFF;
-}
-body.night div.search {
-    background-color: #232148;
-}
-
-body.night div input.form-control {
-    font-weight: 400;
-    color: #FFF;
-    background-color: #232148;
-}
-
-body.night nav.navbar-bottom {
-    background-color: #171531;
-}
-
-body.night .checkout-bottom .text {
-    color: #FFF;
-}
-
-body.night .progress-event {
-    background-color: #232148;
-}
-
-body.night .close {
-    color: #FFF;
-}
-
-body.night div.cart div.cart-list {
-    background-color: #232148;
-}
-body.night div.cart div.cart-list div.product-inf div.product-name {
-    color: #FFF;
-}
-
-body.night div.alert h4 {
-    color: #FFF;
-}
-body.night div.alert-body {
-    color: #EAEAEA;
-}
-
-body.night div.context-view .menu {
-    color: #EAEAEA;
-}
-
-body.night div.form-bill, body.night div.form-user {
-    background-color: #232148;
-}
-
-body.night p {
-    color: #FFF;
-}
-
-body.night div div.card div.card-title {
-    color: #FFF;
-}
-
-body.night div div.card div.card-body {
-    color: #EAEAEA;
-}
-body.night a.nav-link.active {
-    background-color: #00E3D1;
-}
-body.night a.nav-link:hover, body.night div.nav-link:hover {
-    background-color: #00E3D1;
-}
-
-body.night div.account-header div.account img.avatar {
-    background-color: #232148;
-}
-
-body.night div.form-title, body.night div.page-title {
-    color: #FFF;
-}
-
-body.night button.btn.plus, body.night button.btn.minus {
-    box-shadow: 0px 5px 15px 6px #5468ff2e;
-}
-
-body.night div.notif-list-group.readed-0 {
-    background-color: #232148;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night div.notif-list-group.readed-1 {
-    background-color: transparent;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-
-body.night div.notif-list-group {
-    background-color: #232148;
-    box-shadow: 0px 5px 15px 6px #15142F;
-}
-body.night div.notif-list-group div.notif-show-details div.notif-details-message {
-    color: #FFF;
-}
-
-body.night div.order-confirm {
-    background-color: #232148;
-    box-shadow: 0px 5px 15px 6px #15142F;
-    color: #FFF;
-}
-
-/* END NIGHT */
-
 body {
     font-family: "SF Display";
-    margin: auto;
     background-color: #F4F5F9;
 }
 
-/* Reguler */
 @font-face {
     font-family: "SF Display";
     font-weight: 400;
     src: url("../font/SF-UI-Display-Regular.otf");
     font-display: fallback;
 }
-/* Medium */
-/* @font-face {
-    font-family: "SF Display";
-    font-weight: 500;
-    src: url("../font//SF-UI-Display-Medium.otf");
-} */
 
-/* Jangan diedit bagian form styling */
-/* Form styling */
-.alert.alert-success.alert-fixed-top {
-    border: 2px solid #28a745;
+.container {
+    margin-bottom: 80px;
 }
 
-.alert.alert-danger.alert-fixed-top {
-    border: 2px solid #dc3545;
+section {
+    margin-bottom: 30px;
 }
 
-.alert.alert-fixed-top {
-    position: fixed;
-    top: 0;
-    animation: .3s fade;
-    background-color: #000000d1;
-    color: #FFF;
+section>.title {
     text-align: center;
-    left: 10px;
+    color: #313C4E;
+    text-transform: uppercase;
+    margin: 10px 0px;
+    font-size: 17px;
+    font-weight: 700;
 }
 
-@keyframes fade {
-    0% { opacity: 0%;}
-    100% { opacity: 100%;}
+.make-it-horizontal {
+    overflow: auto;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
 }
 
-div.form-title, div.page-title {
+hr:not(.end) {
+    border-top: 1px solid #EAEAEC;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+hr.end {
+    padding: 2px;
+    background-color: #d6d9df;
+    border-radius: 15px;
+    width: 40%;
+    margin-top: 30px;
+    border-top: unset;
+}
+
+a {
+    color: #5468FF;
+    border-bottom: .5px solid #5468FF;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.un-text-d_>a {
+    border-bottom: unset;
+}
+
+button[type=submit] {
+    width: 100%;
+}
+
+button.direct {
+    color: #5468FF;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    width: max-content;
+    background-color: unset;
+}
+
+button.btn.primary {
+    padding: 8px;
+    background-color: #5468FF;
+    box-shadow: 0px 5px 15px 6px #5468ff40;
+    border-radius: 15px;
+    display: flex;
+}
+
+button.btn.primary>.label {
+    margin: 10px 0px;
+    color: #FFF;
+    font-weight: 500;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    font-size: 17px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    left: 15px;
+}
+
+button.btn.primary>.btn {
+    border-radius: 10px;
+    background-color: #3A55F0;
+    width: 50px;
+    height: 45px;
+    color: #FFF;
+    margin-left: 8px;
+    transition: 0.3s background-color;
+}
+
+button.btn.primary>.btn:hover {
+    cursor: pointer;
+    background-color: #7d8aed;
+}
+
+button.btn.primary>.btn>img.icon {
+    width: 20px;
+    position: relative;
+    top: 2px;
+}
+
+.form-title, .page-title {
     margin-top: 20px;
     font-size: 1.1rem;
     text-align: center;
@@ -368,7 +127,7 @@ div.form-title, div.page-title {
     color: #313C4E;
 }
 
-div.form-guide {
+.form-guide {
     margin: 5px auto;
     max-width: 70%;
     text-align: center;
@@ -377,51 +136,17 @@ div.form-guide {
     letter-spacing: 0.3px;
 }
 
-form {
-    margin: 35px 10px 0px 10px;
-}
-
-form div.footer {
-    margin-top: 35px;
-    text-align: center;
-    letter-spacing: 0.3px;
-    font-size: 1.1rem;
-}
-
-form div.footer a {
-    text-decoration: none;
-}
-
-div.footer:not(a) {
-    color: #39425B;
-}
-
-button[type=submit] {
-    width: 100%;
-}
-
-div.form-group span {
-    color: #74788C;
-}
-
-div.form-group>label:not(.form-check-label) {
-    margin-bottom: 8px;
-}
-
-div.form-group .form-check-label {
-    padding-bottom: 10px;
-}
-div.form-group>label:first-child {
-    padding-top: 10px;
-}
-
-div.form-group {
+.form-group {
     padding: 10px 20px 10px 20px;
     margin-bottom: unset;
 }
 
-div.form-group:last-child {
-    padding-bottom: 10px;
+input.form-control {
+    padding: unset;
+    font-weight: 600;
+    font-size: 21px;
+    border: none;
+    color: #2B324E;
 }
 
 input.form-control::placeholder {
@@ -436,143 +161,103 @@ input.form-control:focus {
     box-shadow: unset;
 }
 
-input.form-control {
-    padding: unset;
-    font-weight: 600;
-    font-size: 21px;
-    border: none;
-    color: #2B324E;
+form>.form {
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    background-color: #FFF;
+    border-radius: 15px;
 }
 
-label.form-label {
+form>.form>.form-group>label:first-child {
+    padding-top: 10px;
+}
+
+form>.form>.form-group>label:not(.form-check-label) {
+    margin-bottom: 8px;
+}
+
+form>.form>.form-group>label.form-label {
     font-size: 17px;
     font-weight: 600;
     letter-spacing: 0.2px;
     color: #74788C;
 }
 
-label.form-check-label {
-    letter-spacing: 0.2px;
-}
-/* End form styling */
-
-/* Jangan Edit Lagi */
-
- body, nav.navbar{
-    max-width: 414px;
-} 
-
-hr {
-    border-top: 1px solid #EAEAEC;
-    margin-top: 4px;
-    margin-bottom: 4px;
+form>.form>.form-group>span {
+    color: #74788C;
 }
 
-.navbar {
-    padding: unset;
-}
-
-.margin-bottom-80 {
-    margin-bottom: 80px;
-}
-
-.city {
-    text-transform: uppercase;
+form>.footer {
     text-align: center;
+    margin-top: 35px;
+    letter-spacing: 0.3px;
+    font-size: 1.1rem;
+}
+
+form>.footer:not(a) {
+    color: #39425B;
+}
+
+
+span.counter {
+    margin-left: 7px;
+    padding: 1px 9px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: #3CC9C3;
+}
+
+.alert {
+    text-align: center;
+}
+
+.alert>h4 {
+    color: #313C4E;
     font-weight: 600;
-    color: #5468FF;
-    font-size: 16px;
-    margin-top: 4px;
-    padding-top: 0.35714rem !important;
-    padding-bottom: 0.35714rem !important;
-    letter-spacing: 0;
 }
 
-div.products {
-    /*background-color: #FFF;*/
-    box-shadow: 0px 13px 15px 6px #edeef2;
-    border-radius: 15px;
-}
-
-button.direct {
-    cursor: pointer;
-    color: #5468FF;
-    font-weight: 500;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    width: max-content;
-}
-
-a {
-    color: #5468FF;
-}
-
-a:hover {
-    color: #5468FF;
-    text-decoration: none;
-}
-
-.make-it-rounder {
-    border-radius: 15px;
-}
-
-.make-it-horizontal {
-    overflow: auto;
-    white-space: nowrap;
-}
-/* End */
-
-/* NEW LINE */
-div.card {
-    box-shadow: 0px 5px 15px 6px #0000000d;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    border: unset;
-}
-
-div.card div.card-title {
-    font-weight: 600;
+.alert>.alert-body {
+    color: #666C78;
     font-size: 18px;
-    /* font-size: 22px; */
-    color: #2B324E;
-    padding: 20px 20px 10px 20px;
-    margin: unset;
+    margin: 0px auto;
+    width: calc(100%/1.5);
 }
 
-div.card div.card-body:last-child {
-    padding-bottom: 20px;
+img:not(.App-logo) {
+    animation: .1s ease-in-out fade;
 }
 
-div.card div.card-body {
-    font-size: 17px;
-    color: #2B324E;
-    padding: 10px 20px 10px 20px;
-    margin: unset;
+@keyframes fade {
+    0% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
 }
 
-div.cart-progress .progress-event {
-    position: unset;
-    left: unset;
-    top: unset;
-    margin: unset;
-    width: unset;
+.middle-scr {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
-button.close {
-    position: relative;
-    top: 2px;
-    right: 5%;
-    outline: none;
+.middle-btm {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
-div.g-mx-25 {
-    margin-left: 25px;
-    margin-right: 25px;
+.d-grid {
+    min-height: 89vh;
+    display: grid;
+    text-align: center;
 }
-/* END NEW LINE */
-
-.carousel-indicators {
-    bottom: unset;
-    width: 0;
+.d-grid>div {
+    margin: auto 15px;
 }

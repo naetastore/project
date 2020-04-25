@@ -1,0 +1,44 @@
+.search-result {
+    margin-bottom: 30px;
+}
+
+.search-result>.product {
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    background-color: #fff;
+    display: flex;
+    border-radius: 15px;
+    width: 100%;
+    height: max-content;
+}
+
+.search-result>.product>.img {
+    padding: 20px;
+}
+
+.search-result>.product>.img>img {
+    width: 160px;
+    background-color: #eaeaea;
+}
+
+.search-result>.product>.body {
+    padding: 20px 20px 20px 0px;
+}
+
+.search-result>.product>.body>.desc {
+    font-size: 14px;
+    font-weight: 700;
+    color: #5468FF;
+}
+
+.search-result>.product>.body>.title {
+    margin: 15px 0px;
+    color: #393939;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.search-result>.product>.body>.price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #798086;
+}

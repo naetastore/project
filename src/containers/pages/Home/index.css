@@ -1,0 +1,11 @@
+.welcome {
+    text-align: center;
+    color: #313C4E;
+    width: 60%;
+    margin: auto;
+}
+
+div.apps {
+    margin: 20px auto 0px auto;
+    width: max-content;
+}

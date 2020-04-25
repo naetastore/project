@@ -1,90 +1,86 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
+import Template from '../../templates/Book';
+import Menu from '../../organism/CategoryMenu';
+import Product from '../../../components/molecules/Product';
+import Button from '../../../components/molecules/Button';
 import { connect } from 'react-redux';
-import CardProduct from '../../organism/CardProduct';
-import API from '../../../services';
-import CatalogTemplate from '../../templates/CatalogTemplate';
-import Loader from '../../../components/molecules/Loader';
+import api from '../../../config/redux/action';
 
-class Catalog extends Component {
+class Catalog extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            loaderDisplay: '',
-            isloading: false
-        }
-    }
+    state = {
+        isLoading: false
+    };
 
     componentDidMount() {
-        this.getData();
+        window.scrollTo(null, 0);
+        this.getDataToAPI();
     }
 
-    componentWillUnmount() {
-        const controller = new AbortController();
-        controller.abort();
-    }
+    getDataToAPI = async () => {
+        this.setState({ isLoading: true });
 
-    async getData() {
-        if (this.props.categoriesData.length) return;
-        const {
-            setCategoriesData, setProductData
-        } = this.props;
+        const { category, product } = this.props;
 
-        this.setState({ isloading: true });
-
-        const category = await this.getDataToAPI('category');
-        const product = await this.getDataToAPI('product');
-        setCategoriesData(category);
-        setProductData(product);
-
-        this.setState({ loaderDisplay: 'none', isloading: false });
-    }
-
-    async getDataToAPI(path, params) {
-        try {
-            const response = await API.GET(path, params);
-            return response.data[path];
-        } catch (err) {
-            console.error(err);
+        let cReady = false;
+        if (category.length < 1) {
+            await api.getCategory();
+            cReady = true;
+        } else {
+            cReady = true;
         }
-    }
 
-    addToCart = product => {
-        this.props.addToCart(product);
+        let pReady = false;
+        if (product.length < 1) {
+            await api.getProduct();
+            pReady = true;
+        } else {
+            pReady = true;
+        }
+
+        if (cReady && pReady) this.setState({ isLoading: false });
     }
 
     render() {
+        if (this.state.isLoading) return (
+            <p className="middle-scr">sedang memuat...</p>
+        );
         return (
-            this.state.isloading
-                ? <Loader display={this.state.loaderDisplay} />
-                :
-                <CatalogTemplate
-                    dataMenu={this.props.categoriesData}
-                    menuHref="/catalog"
-                    container={
-                        <CardProduct
-                            categoryId={this.props.match.params.id}
-                            data={this.props.productData}
-                            ngClick={this.addToCart}
-                        />
-                    }
-                />
+            <Template
+                header={
+                    <Fragment>
+                        <div className="city">Kota Belitang</div>
+                        <hr />
+                        <Menu data={this.props.category} to="/catalog" />
+                    </Fragment>
+                }
+
+                container={
+                    this.props.product.map((p, i) =>
+                        p.category_id === this.props.match.params.cid
+                            ?
+                            <Fragment key={i}>
+                                <Product className="product-item" data={p} />
+                                <Button
+                                    type="submit"
+                                    onClick={() => this.props.addToCart(p)}
+                                >Tambah ke Troli</Button>
+                            </Fragment>
+                            : <Fragment key={i}></Fragment>
+                    )
+                }
+            />
         );
     }
-
 }
 
 const mapStateToProps = state => ({
-    categoriesData: state.categories,
-    productData: state.product
+    category: state.category,
+    product: state.product
 });
 
-const dispatch = dispatch => {
-    return {
-        setCategoriesData: data => dispatch({ type: "SET_CATEGORIES", data }),
-        setProductData: data => dispatch({ type: "SET_PRODUCT", data }),
-        addToCart: product => dispatch({ type: "ADD_TO_CART", product })
-    }
-}
+const reduxDispatch = dispatch => ({
+    addToCart: data => dispatch({ type: 'ADD_TO_CART', data })
+});
 
-export default connect(mapStateToProps, dispatch)(Catalog);
+export default connect(mapStateToProps, reduxDispatch)(Catalog);

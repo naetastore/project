@@ -1,66 +1,52 @@
 import React, { Fragment } from 'react';
-import Wrapper from '../../organism/Wrapper';
+import Template from '../../templates/Single';
 import API from '../../../services';
-import ProductItem from '../../../components/molecules/ProductItem';
-import ProductFooter from '../../../components/molecules/ProductFooter';
-import Loader from '../../../components/molecules/Loader';
+import Product from '../../../components/molecules/Product';
 import { connect } from 'react-redux';
+import Button from '../../../components/molecules/Button';
 
 class Single extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isloading: true,
-            product: {}
-        }
-    }
+
+    state = {
+        product: {}
+    };
 
     componentDidMount() {
-        this.getData();
+        this.getDataToAPI();
     }
 
-    componentWillUnmount() {
-        const controller = new AbortController();
-        controller.abort();
-    }
-
-    async getData() {
+    getDataToAPI = async () => {
         try {
-            let product = await API.GET('product', { 'id': this.props.match.params.id });
-            product = product.data.product;
-            this.setState({ product, isloading: false });
+            const response = await API.GET('product', { 'id': this.props.match.params.id });
+            this.setState({ product: response.data.product });
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
-    }
-
-    addToCart = product => {
-        this.props.addToCart(product);
     }
 
     render() {
+        const isExist = this.state.product.name !== undefined;
         return (
-            this.state.isloading ? <Loader /> : <Wrapper className="margin-bottom-80" container={
-                <Fragment>
-                    <ProductItem
-                        imgUrl={this.state.product.image}
-                        name={this.state.product.name}
-                        desc={this.state.product.description}
-                        price={this.state.product.price}
-                        curs={this.state.product.curs}
-                    />
-                    <ProductFooter
-                        ngClick={() => this.addToCart(this.state.product)}
-                    />
-                </Fragment>
-            } />
+            <Template
+                container={
+                    <Fragment>
+                        <Product className="product-item" data={this.state.product} />
+                        {isExist ?
+                            <div className="product-footer float-right">
+                                <Button
+                                    onClick={() => this.props.addToCart(this.state.product)}
+                                ></Button>
+                            </div>
+                            : <></>}
+                    </Fragment>
+                }
+            />
         );
     }
-
 }
 
-const dispatch = dispatch => ({
-    addToCart: product => dispatch({ type: "ADD_TO_CART", product })
+const reduxDispatch = dispatch => ({
+    addToCart: data => dispatch({ type: 'ADD_TO_CART', data })
 });
 
-export default connect(null, dispatch)(Single);
+export default connect(null, reduxDispatch)(Single);

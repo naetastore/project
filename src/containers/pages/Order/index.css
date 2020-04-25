@@ -1,0 +1,23 @@
+.order-confirm {
+    display: flex;
+    padding: 15px;
+    background-color: #FFF;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0px 5px 15px 6px #0000000d;
+}
+
+.order-confirm>.question {
+    margin-right: 10px;
+}
+
+.order-confirm>.delete {
+    color: #DC3545;
+    margin: auto;
+}
+
+.order-confirm>.go-back {
+    color: #5468FF;
+    text-align: right;
+    margin-right: 10px;
+}

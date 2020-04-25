@@ -1,0 +1,24 @@
+.app {
+    display: flex;
+    margin: auto 10px;
+    border-radius: 15px;
+    padding: 15px;
+    color: initial;
+    background-color: #FFF;
+    box-shadow: 0px 5px 15px 6px #0000000d;
+    text-align: center;
+}
+
+.app:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.app img.app-icon {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.app span {
+    margin: auto;
+}

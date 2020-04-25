@@ -1,0 +1,5 @@
+header:not(.App-header) {
+    padding: 15px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}

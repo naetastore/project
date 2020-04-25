@@ -1,0 +1,12 @@
+.progress-event {
+    z-index: 1;
+    background-color: #eaeaea;
+    border-radius: 20px;
+}
+
+.loaded {
+    height: 3.5px;
+    border-radius: 20px;
+    background-color: #00E3D1;
+    transition: .3s width;
+}

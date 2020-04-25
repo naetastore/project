@@ -1,107 +1,100 @@
-import React from 'react';
-import './Auth.css';
+import React, { Fragment } from 'react';
+import Template from '../../templates/Auth';
+import Form from '../../organism/Forms/Auth';
 import API from '../../../services';
 import { connect } from 'react-redux';
-import FormUser from '../../organism/FormUser';
-import { Session } from '../../../config/Session';
+import session from '../../../config/session';
+import { NavLink } from 'react-router-dom';
 
 class Auth extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: false,
-            formUser: {},
-            error: '',
-            btnOff: false
-        }
-    }
+    state = {
+        isLoading: false,
+        visible: false
+    };
 
-    componentDidMount() {
-        const session = Session.get();
-        if (session) {
-            this.setSession(session);
-            this.redirect();
-            return;
-        }
-        this.init();
-    }
-
-    componentWillUnmount() {
-        const controller = new AbortController();
-        controller.abort();
-    }
-
-    init = () => {
-        this.setState({ formUser: { username: '', password: '' }, btnOff: true });
-    }
-
-    setSession = userdata => {
-        this.props.setAuthenticated(true);
-        this.props.setSession(userdata);
-    }
-
-    handleChange = async event => {
-        let formUser = { ...this.state.formUser }
-        formUser[event.target.id] = event.target.value;
-        await this.setState({ formUser });
-        if (formUser.username.length > 0 && formUser.password.length > 0) {
-            this.setState({ btnOff: false });
+    componentDidMount = async () => {
+        const s = session.get;
+        if (s('username') !== null) {
+            this.auth({ username: s('username'), password: s('password') });
         } else {
-            this.setState({ btnOff: true });
+            this.setState({ visible: true });
         }
     }
 
-    userValidity = async () => {
+    auth = async data => {
         this.setState({ isLoading: true });
         try {
-            const response = await API.GET('user', { ...this.state.formUser });
-            if (response.data.status === true) {
-                let userdata = response.data.user;
-                userdata['password'] = this.state.formUser.password;
-                this.props.setSession(userdata);
-                await Session.set(userdata);
+            const response = await API.GET('users', data);
 
-                this.redirect();
-                return;
-            }
+            let userData = response.data;
+            userData['password'] = data.password;
+
+            this.setUser(userData);
+            this.redirect();
+
+            return;
         } catch (err) {
-            await this.setState({ error: err.message });
-            if (this.state.error) {
-                setTimeout(() => this.setState({ error: '' }), 3000);
-            }
-        };
-        this.setState({ isLoading: false });
+            console.error(err);
+            const errorMessage = err.response.data.message;
+
+            alert(errorMessage);
+
+            this.setState({ isLoading: false });
+        }
+    }
+
+    setUser = data => {
+        this.props.setUserData(data);
+        session.set(data);
     }
 
     redirect = () => {
-        const { location, history } = this.props;
-        let search = location.search;
+        let search = this.props.location.search;
         if (!search) {
-            history.push('/account/myprofile');
-            return;
+            this.props.history.push('/account/myprofile');
+        } else {
+            search = search.replace('?', '');
+            this.props.history.push(search);
         }
-        search = search.replace('?', '');
-        history.push(search);
     }
 
     render() {
+        if (!this.state.visible) {
+            return (<p className="middle-scr">sedang memuat...</p>);
+        }
+        const s = this.props.location.search;
         return (
-            <FormUser disabled={this.state.btnOff} title="Log In" error={this.state.error} ngSubmit={this.userValidity} ngChange={this.handleChange} labelSubmit="Lanjutkan" isLoading={this.state.isLoading}
-                guide="Masukan detail login Anda untuk mengakses akun Anda."
+            <Template
+                header={
+                    <Fragment>
+                        <div className="form-title">Log In</div>
+                        <div className="form-guide">
+                            Masukan info detail login untuk mengakses akun Anda.
+                        </div>
+                    </Fragment>
+                }
+
+                container={
+                    <Form
+                        onSubmit={this.auth}
+                        isLoading={this.state.isLoading}
+                        footer={
+                            <NavLink to={!s ? "/signup" : "/signup" + s}>Daftar Akun</NavLink>
+                        }
+                    />
+                }
             />
         );
     }
-
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.isAuthenticated
+    userData: state.userData
 });
 
 const reduxDispatch = dispatch => ({
-    setAuthenticated: value => dispatch({ type: 'IS_AUTHENTICATED', value }),
-    setSession: userdata => dispatch({ type: 'SET_SESSION', userdata })
+    setUserData: data => dispatch({ type: 'SET_USERDATA', data })
 });
 
 export default connect(mapStateToProps, reduxDispatch)(Auth);

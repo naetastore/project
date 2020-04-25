@@ -1,93 +1,95 @@
-import React from 'react';
-import API from '../../../services';
+import React, { Fragment } from 'react';
+import Template from '../../templates/Book';
+import Menu from '../../organism/CategoryMenu';
 import { connect } from 'react-redux';
-import BookTemplate from '../../templates/BookTemplate';
-import Loader from '../../../components/molecules/Loader';
-import ChildCategories from '../../organism/ChildCategories';
+import Category from '../../organism/SubCategory';
+import Product from '../../../components/molecules/Product';
+import api from '../../../config/redux/action';
 
 class Book extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            isloading: false
-        }
-    }
+    state = {
+        isLoading: false
+    };
 
     componentDidMount() {
-        setTimeout(() => this.getData(), 100);
+        window.scrollTo(null, 0);
+        this.getDataToAPI();
     }
 
-    componentWillUnmount() {
-        const controller = new AbortController();
-        controller.abort();
-    }
+    getDataToAPI = async () => {
+        this.setState({ isLoading: true });
 
-    async getData() {
-        const {
-            globalData, categoriesData, productData,
-            setGlobalData, setCategoriesData, setProductData
-        } = this.props;
-        if (globalData.length && categoriesData.length && productData.length) return;
+        const { global, category, product } = this.props;
 
-        this.setState({ isloading: true });
-
-        const books = await this.getDataAPI('general');
-        const categories = await this.getDataAPI('category');
-        const products = await this.getDataAPI('product');
-        setGlobalData(books);
-        setCategoriesData(categories);
-        setProductData(products);
-
-        this.setState({ isloading: false });
-    }
-
-    async getDataAPI(path, params) {
-        try {
-            const response = await API.GET(path, params);
-            return response.data[path];
-        } catch (err) {
-            console.error(err);
+        let gReady = false;
+        if (global.length < 1) {
+            await api.getGlobal();
+            gReady = true;
+        } else {
+            gReady = true;
         }
-    }
 
-    moveToProduct = id => {
-        this.props.history.push(`/single/${id}`);
-    }
+        let cReady = false;
+        if (category.length < 1) {
+            await api.getCategory();
+            cReady = true;
+        } else {
+            cReady = true;
+        }
 
-    moveToCatalog = id => {
-        this.props.history.push(`/catalog/${id}`);
+        let pReady = false;
+        if (product.length < 1) {
+            await api.getProduct();
+            pReady = true;
+        } else {
+            pReady = true;
+        }
+
+        if (gReady && cReady && pReady) this.setState({ isLoading: false });
     }
 
     render() {
+        if (this.state.isLoading) return (
+            <p className="middle-scr">sedang memuat...</p>
+        );
         return (
-            this.state.isloading
-                ? <Loader />
-                :
-                <BookTemplate dataMenu={this.props.globalData} container={
-                    <ChildCategories
-                        categories={this.props.categoriesData}
-                        products={this.props.productData}
-                        globalId={this.props.match.params.id}
-                        ngClickCategory={this.moveToCatalog}
-                        ngClickProduct={this.moveToProduct}
-                    />
-                } />
+            <Template
+                header={
+                    <Fragment>
+                        <div className="city">Kota Belitang</div>
+                        <hr />
+                        <Menu data={this.props.global} to="/book" />
+                    </Fragment>
+                }
+
+                container={
+                    this.props.category.map((c, cindex) =>
+                        c.global_id === this.props.match.params.gid
+                            ?
+                            <section id={c.name} key={cindex}>
+                                <Category data={c} onClick={(id) => this.props.history.push(`/catalog/${id}`)} />
+                                <div className="products make-it-horizontal mt-3">
+                                    {this.props.product.map((p, pindex) =>
+                                        p.category_id === c.id
+                                            ?
+                                            <Product data={p} onClick={(id) => this.props.history.push(`/single/${id}`)} key={pindex} />
+                                            : <Fragment key={pindex}></Fragment>
+                                    )}
+                                </div>
+                            </section>
+                            : <Fragment key={cindex}></Fragment>
+                    )
+                }
+            />
         );
     }
-
 }
 
 const mapStateToProps = state => ({
-    globalData: state.global,
-    categoriesData: state.categories,
-    productData: state.product
+    global: state.global,
+    category: state.category,
+    product: state.product
 });
 
-const dispatch = dispatch => ({
-    setGlobalData: data => dispatch({ type: "SET_GLOBAL", data }),
-    setCategoriesData: data => dispatch({ type: "SET_CATEGORIES", data }),
-    setProductData: data => dispatch({ type: "SET_PRODUCT", data })
-});
-
-export default connect(mapStateToProps, dispatch)(Book);
+export default connect(mapStateToProps)(Book);

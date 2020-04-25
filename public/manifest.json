@@ -1,9 +1,9 @@
 {
-  "short_name": "Naeta Store",
-  "name": "Aplikasi Shoping Online Andi",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
-      "src": "ns.ico",
+      "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#d82a4e",
-  "background_color": "#f7f7f7"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }

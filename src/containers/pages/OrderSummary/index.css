@@ -1,0 +1,4 @@
+.order-success {
+    background-image: url('../../../assets/img/congrats.svg');
+    background-size: contain;
+}

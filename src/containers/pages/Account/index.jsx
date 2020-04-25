@@ -1,53 +1,23 @@
-import React, { Fragment } from 'react';
-import { REST } from '../../../config/REST';
-import { NavLink } from 'react-router-dom';
-import './Account.css';
+import React from 'react';
+import './index.css';
+import session from '../../../config/session';
 import { connect } from 'react-redux';
-import Axios from 'axios';
-import Progress from '../../../components/molecules/Progress';
-import Default from '../../../assets/img/avatar/default.svg';
-import { Session } from '../../../config/Session';
 import API from '../../../services';
-import { store } from '../../../config/redux/store';
+import Img from '../../../components/molecules/Avatar';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { REST } from '../../../config/REST';
 
 class Account extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            phone: '',
-            avatar: null,
-            inputFile: null,
-            progress: 0,
-            isloading: false
+    componentDidMount() {
+        const s = session.get;
+        if (s('username') === null) {
+            this.props.history.push('/auth?account/myprofile');
+            return
         }
-    }
-
-    async componentDidMount() {
-        const session = Session.get();
-        if (!session) {
-            this.props.history.push('/auth?myprofile');
-            return;
-        } else {
-            await this.setSession(session);
-        }
-
-        this.init();
-        this.updateState();
-
-        const c = new AbortController();
-        if (!c.signal.aborted) {
-            store.subscribe(() => {
-                let inSession = store.getState().inSession;
-                let { name, phone } = inSession;
-                if (name !== undefined && name !== this.state.name) {
-                    this.setState({ name });
-                }
-                if (phone !== this.state.phone) {
-                    this.setState({ phone });
-                }
-            });
+        if (this.props.userData.username === undefined) {
+            this.auth({ username: s('username'), password: s('password') });
         }
     }
 
@@ -56,181 +26,78 @@ class Account extends React.Component {
         controller.abort();
     }
 
-    setSession = userdata => {
-        this.props.setAuthenticated(true);
-        this.props.setSession(userdata);
-    }
-
-    init = async () => {
-        await this.setState({ avatar: Default });
-    }
-
-    updateState = async () => {
-        let session = Session.get();
-
-        let inSession = this.props.inSession;
-        let { avatar, username, name } = inSession;
-
-        if (name === undefined) {
-            let response = await API.GET('user', { username: session.username, password: session.password });
-            response = response.data.user;
-            response['password'] = session.password;
-
-            const newUserData = response;
-            this.props.setSession(newUserData);
-            inSession = this.props.inSession;
-        }
-
-        if (inSession.name !== undefined) {
-            this.setState({ name: inSession.name });
-        } else {
-            this.setState({ name: username });
-        }
-
-        this.setState({ phone: inSession.phone });
-
-        if (inSession.avatar !== undefined) {
-            this.setState({ avatar });
-        }
-    }
-
-    setLoading = isloading => {
-        this.setState({ isloading });
-    }
-
-    ngChangeImage = async e => {
+    changePhoto = e => {
         const img = e.target.files[0];
 
-        let type = img.type.split('/');
-        if (type[1] !== 'jpeg' && type[1] !== 'jpg' && type[1] !== 'png') {
-            alert('Harus merupakan gambar');
-            return;
-        }
-
-        this.setState({ inputFile: img });
-
-        try {
-            const newImg = await this.updateAvatar(img);
-            window.sessionStorage.setItem('naetastore_avatar', newImg.path);
-            this.updateUI(newImg);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    updateAvatar = img => {
-        const { username, password } = this.props.inSession;
-
         const fd = new FormData();
-        fd.append('image', img, img.name)
-        fd.append('apikey', 'andinaeta4328');
-        fd.append('username', username);
-        fd.append('password', password);
+        fd.append(REST.server.apikey.name, REST.server.apikey.key);
+        fd.append('username', session.get('username'));
+        fd.append('password', session.get('password'));
+        fd.append('image', img);
+        fd.append('avatar', 1);
+        fd.append('update', 1);
 
-        this.setLoading(true);
-        return new Promise((resolve, reject) => {
-            Axios.post(`${REST.server.url}api/avatar`, fd, {
-                onUploadProgress: progressEvent => {
-                    let loaded = Math.round(progressEvent.loaded / progressEvent.total * 100);
-                    this.setState({ progress: loaded });
-                }
-            })
-                .then(res => {
-                    this.setLoading(false);
-                    resolve(res.data.avatar);
-                })
-                .catch(err => {
-                    this.setLoading(false);
-                    reject(err.response);
-                    console.log(err.response);
-                });
+        axios.post(`${REST.server.url}api/users`, fd).then(res => {
+            res.data['password'] = session.get('password');
+            this.setUser(res.data);
         });
     }
 
-    updateUI = () => {
-        const img = this.state.inputFile;
-        const reader = new FileReader();
+    auth = async data => {
+        try {
+            const response = await API.GET('users', data);
 
-        reader.onload = () => {
-            this.setState({ avatar: reader.result });
+            let userData = response.data;
+            userData['password'] = data.password;
 
-            let userdata = { ...this.props.inSession }
-            userdata['avatar'] = reader.result;
+            this.setUser(userData);
 
-            this.props.setSession(userdata);
+            return;
+        } catch (err) {
+            const errorMessage = err.response.data.message;
+            console.log(errorMessage);
         }
-        reader.readAsDataURL(img);
-        this.setLoading(false);
+    }
+
+    setUser = data => {
+        this.props.setUserData(data);
+        session.set(data);
     }
 
     render() {
+        const userInfo = this.props.userData;
         return (
-            <Fragment>
-                {this.state.isloading ? <Progress percentase={this.state.progress} /> : <></>}
-                <div className="account-header">
-                    <div className="account">
-                        <div className="avatar">
-                            <input
-                                style={{ display: "none" }}
-                                type="file"
-                                name="image"
-                                id="image"
-                                ref={fileinput => this.fileinput = fileinput}
-                                onChange={this.ngChangeImage}
-                            />
-                            <img
-                                onClick={() => this.fileinput.click()}
-                                alt="avatar" src={this.state.avatar} className="avatar"
-                            />
-                            <div className="av-desc">
-                                <div className="name">
-                                    {this.state.name}
-                                </div>
-                                <div>{this.state.phone}</div>
-                                <div>{this.props.inSession.created}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="tabs">
-                        <Fragment>
-                            <NavLink
-                                to='/account/myprofile'
-                                classactive="active"
-                            >
-                                <div className="tab-menu">Akun</div>
-                            </NavLink>
-                            <NavLink
-                                to='/account/order'
-                            >
-                                <div className="tab-menu">Order</div>
-                            </NavLink>
-                            <NavLink
-                                to='/account/notification'
-                            >
-                                <div className="tab-menu">Notifikasi</div>
-                            </NavLink>
-                            <NavLink
-                                to='/account/settings'
-                            >
-                                <div className="tab-menu">Setelan</div>
-                            </NavLink>
-                        </Fragment>
+            <div className="header-account">
+                <div className="account">
+                    <Img src={userInfo.avatar} onClick={() => this.fileInput.click()} className="avatar" />
+                    <input
+                        style={{ display: "none" }}
+                        ref={fileInput => this.fileInput = fileInput}
+                        onChange={this.changePhoto}
+                        type="file"
+                        name="avatar"
+                        id="avatar" />
+                    <div className="user-info mt-2">
+                        <div className="name">{userInfo.name ? userInfo.name : userInfo.username}</div>
                     </div>
                 </div>
-            </Fragment>
+                <div className="tabs un-text-d_">
+                    <NavLink classactive="active" to="/account/myprofile">Akun</NavLink>
+                    <NavLink classactive="active" to="/account/order">Order</NavLink>
+                    <NavLink classactive="active" to="/account/notification">Notifikasi</NavLink>
+                    <NavLink classactive="active" to="/account/settings">Setelan</NavLink>
+                </div>
+            </div>
         );
     }
-
 }
 
 const mapStateToProps = state => ({
-    inSession: state.inSession,
-    isAuthenticated: state.isAuthenticated
+    userData: state.userData
 });
 
-const dispatch = dispatch => ({
-    setSession: userdata => dispatch({ type: "SET_SESSION", userdata }),
-    setAuthenticated: value => dispatch({ type: 'IS_AUTHENTICATED', value })
-})
+const reduxDispatch = dispatch => ({
+    setUserData: data => dispatch({ type: 'SET_USERDATA', data })
+});
 
-export default connect(mapStateToProps, dispatch)(Account);
+export default connect(mapStateToProps, reduxDispatch)(Account);

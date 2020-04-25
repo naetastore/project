@@ -1,92 +1,96 @@
-import React from 'react';
-import API from '../../../services';
+import React, { Fragment } from 'react';
+import Category from '../../organism/SubCategory';
+import ProductMinimal from '../../../components/molecules/Product';
 import { connect } from 'react-redux';
-import Categories from '../../organism/Product/Categories';
-import Wrapper from '../../organism/Wrapper';
-import Loader from '../../../components/molecules/Loader';
+import api from '../../../config/redux/action';
 
 class Product extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            isloading: false
-        }
-    }
+    state = {
+        isLoading: false
+    };
 
     componentDidMount() {
-        this.getData();
+        window.scrollTo(null, 0);
+        this.getDataToAPI();
     }
 
-    componentWillUnmount() {
-        const controller = new AbortController();
-        controller.abort();
-    }
+    getDataToAPI = async () => {
+        this.setState({ isLoading: true });
 
-    async getData() {
-        if (this.props.globalData && this.props.globalData.length > 0) return;
-        const {
-            setGlobalData, setCategoriesData, setProductData
-        } = this.props;
+        const { global, category, product } = this.props;
 
-        this.setState({ isloading: true });
-
-        const { APIRequest } = this;
-        const global = await APIRequest('general');
-        const categories = await APIRequest('category');
-        const product = await APIRequest('product');
-
-        setGlobalData(global);
-        setCategoriesData(categories);
-        setProductData(product);
-
-        this.setState({ isloading: false });
-    }
-
-    async APIRequest(path, params) {
-        try {
-            const result = await API.GET(path, params);
-            return result.data[path];
-        } catch (err) {
-            console.error(err);
+        let gReady = false;
+        if (global.length < 1) {
+            await api.getGlobal();
+            gReady = true;
+        } else {
+            gReady = true;
         }
-    }
 
-    moveToCatalog = (id, name) => {
-        this.props.history.push('/catalog/' + id + '/' + name);
-    }
+        let cReady = false;
+        if (category.length < 1) {
+            await api.getCategory();
+            cReady = true;
+        } else {
+            cReady = true;
+        }
 
-    moveToSingle = id => {
-        this.props.history.push('/single/' + id);
+        let pReady = false;
+        if (product.length < 1) {
+            await api.getProduct();
+            pReady = true;
+        } else {
+            pReady = true;
+        }
+
+        if (gReady && cReady && pReady) this.setState({ isLoading: false });
     }
 
     render() {
+        if (this.state.isLoading) return <p className="middle-scr">sedang memuat...</p>;
         return (
-            this.state.isloading ? <Loader /> :
-                <Wrapper className="margin-bottom-80" container={
-                    <Categories
-                        globals={this.props.globalData}
-                        categories={this.props.categoriesData}
-                        products={this.props.productData}
-                        ngClickProduct={id => this.moveToSingle(id)}
-                        ngClickCatalog={(id, name) => this.moveToCatalog(id, name)}
-                    />
-                } />
+            <div className="container mt-3">
+                <div className="row">
+                    <div className="col-12">
+                        {this.props.global.map((g, gindex) =>
+
+                            <section id={g.name} key={gindex}>
+                                <div className="title">{g.name}</div>
+                                <div className="desc">{g.description}</div>
+
+                                {this.props.category.map((c, cindex) =>
+                                    c.global_id === g.id
+
+                                        ?
+                                        <Fragment key={cindex}>
+                                            <Category data={c} className="mt-3" onClick={(id) => this.props.history.push(`/catalog/${id}`)} />
+
+                                            <div className="products make-it-horizontal mt-3">
+                                                {this.props.product.map((p, pindex) =>
+                                                    p.category_id === c.id
+
+                                                        ? <ProductMinimal data={p} key={pindex} onClick={(id) => this.props.history.push(`/single/${id}`)} />
+                                                        : <Fragment key={pindex}></Fragment>
+                                                )}
+                                            </div>
+                                        </Fragment>
+
+                                        : <Fragment key={cindex}></Fragment>
+                                )}
+                            </section>
+                        )}
+                    </div>
+                </div>
+            </div>
         );
     }
-
 }
 
 const mapStateToProps = state => ({
-    globalData: state.global,
-    categoriesData: state.categories,
-    productData: state.product
+    global: state.global,
+    category: state.category,
+    product: state.product
 });
 
-const dispatch = dispatch => ({
-    setGlobalData: data => dispatch({ type: "SET_GLOBAL", data }),
-    setCategoriesData: data => dispatch({ type: "SET_CATEGORIES", data }),
-    setProductData: data => dispatch({ type: "SET_PRODUCT", data })
-});
-
-export default connect(mapStateToProps, dispatch)(Product);
+export default connect(mapStateToProps)(Product);

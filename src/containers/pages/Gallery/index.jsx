@@ -1,25 +1,30 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import './Gallery.css';
+import React, { Fragment, useEffect, useState } from 'react';
+import './index.css';
 import API from '../../../services';
 import InfiniteScroll from 'react-infinite-scroller';
 import Figure from 'react-bootstrap/Figure'
-import InputKeyword from '../../../components/molecules/InputKeyword';
+import Input from '../../../components/molecules/Input';
+
 let page = 0;
 
-function Galery(props) {
+function Gallery(props) {
+
     const [items, setItems] = useState([]);
     const [initialized, setInitialized] = useState(false);
     const [hasMore, setHasMore] = useState(false);
 
     const [searchMode, setSearchMode] = useState(false);
-    const [keyword, setKeyword] = useState('');
     const [errMessage, setErr] = useState('');
+
+    useEffect(() => {
+        if (!initialized) {
+            getNewProduct();
+        }
+    });
 
     const getNewProduct = async () => {
         if (searchMode) {
             setHasMore(false);
-            const response = await API.GET('search', { 'q': keyword });
-            setItems(response.data.search);
         } else {
             page++;
             const response = await API.GET('product', { 'limit': page });
@@ -34,57 +39,38 @@ function Galery(props) {
         setInitialized(true);
     }
 
-    useEffect(() => {
-        if (!initialized) {
-            getNewProduct();
-        }
-    });
-
-    const directToProduct = id => {
-        props.history.push(`/single/${id}`);
-    }
-
-    const changeKeyword = e => {
-        setKeyword(e.target.value);
-    }
-
-    const search = async () => {
+    const search = async keyword => {
         try {
-            setErr('');
-            const response = await API.GET('search', { 'q': keyword });
-            setItems(response.data.search);
+            const response = await API.GET('product/search', { 'q': keyword });
             setSearchMode(true);
+            setItems(response.data.search);
+            if (response.data.search.length) setErr('');
         } catch (err) {
-            setErr(err.message);
+            console.error(err);
+            const errorMessage = err.response.data.message;
+            setErr(errorMessage);
         }
     }
 
     return (
         <Fragment>
-            <div className="gallery">
-                <InputKeyword
-                    placeholder="Kata kunci..."
-                    ngChange={changeKeyword}
-                    ngClick={search}
-                />
-                {
-                    errMessage
-                        ? <div className="alert alert-danger">{errMessage}</div>
-                        : <></>
-                }
-
+            <Input placeholder="Kata kunci..." onClick={search} className="mt-4" />
+            {errMessage
+                ? <div className="alert alert-danger mt-3">{errMessage}</div>
+                : <></>}
+            <div className="text-center mt-4 mb-80">
                 <InfiniteScroll
                     pageStart={page}
                     loadMore={getNewProduct}
                     hasMore={hasMore}
-                    threshold={100}
+                    threshold={60}
                 >
-                    {items.map((i, index) =>
-                        <Figure key={index}>
+                    {items.map((p, i) =>
+                        <Figure key={i}>
                             <Figure.Image
                                 width={window.innerWidth / 3.5}
-                                src={i.image}
-                                onClick={() => directToProduct(i.id)}
+                                src={p.image}
+                                onClick={() => props.history.push(`/single/${p.id}`)}
                             />
                         </Figure>
                     )}
@@ -94,4 +80,4 @@ function Galery(props) {
     );
 }
 
-export default Galery;
+export default Gallery;
