@@ -10,6 +10,9 @@
     transition: .1s ease-in-out background-color;
     padding: 10px 20px 10px 20px;
 }
+.settings>.list-group:hover {
+    cursor: pointer;
+}
 
 .settings>.list-group:first-child {
     padding: 35px 20px 10px 20px;
@@ -66,4 +69,7 @@
 
 .settings>.details>.action>span.go-back {
     color: #5468FF;
+}
+.settings>.details>.action>span.go-back:hover {
+    cursor: pointer;
 }

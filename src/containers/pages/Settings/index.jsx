@@ -72,10 +72,9 @@ class Settings extends React.Component {
             const newData = response.data;
 
             if (this.state.details.id === "repassword") {
-                session.set({
-                    username: session.get('username'),
-                    password: this.state.inputValue
-                });
+                let onSession = session.get();
+                onSession['password'] = this.state.inputValue;
+                session.set(onSession);
             }
 
             this.props.setUserData(newData);

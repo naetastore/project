@@ -89,6 +89,11 @@
     transition: .1s ease-in-out background-color;
 }
 
+.account-body>.orders>.list-group:hover,
+.account-body>.notifications>.list-group:hover {
+    cursor: pointer;
+}
+
 .account-body>.orders>.list-group:first-child,
 .account-body>.notifications>.list-group:first-child {
     border-top-left-radius: 15px;

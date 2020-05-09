@@ -65,11 +65,11 @@ class Account extends React.Component {
     }
 
     render() {
-        const userInfo = this.props.userData;
+        const { userData } = this.props;
         return (
             <div className="header-account">
                 <div className="account">
-                    <Img src={userInfo.avatar} onClick={() => this.fileInput.click()} className="avatar" />
+                    <Img src={userData.avatar} onClick={() => this.fileInput.click()} className="avatar" />
                     <input
                         style={{ display: "none" }}
                         ref={fileInput => this.fileInput = fileInput}
@@ -78,7 +78,7 @@ class Account extends React.Component {
                         name="avatar"
                         id="avatar" />
                     <div className="user-info mt-2">
-                        <div className="name">{userInfo.name ? userInfo.name : userInfo.username}</div>
+                        <div className="name">{userData.name ? userData.name : userData.username}</div>
                     </div>
                 </div>
                 <div className="tabs un-text-d_">

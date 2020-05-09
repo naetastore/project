@@ -16,8 +16,16 @@
     margin: auto;
 }
 
+.order-confirm>.delete:hover {
+    cursor: pointer;
+}
+
 .order-confirm>.go-back {
     color: #5468FF;
     text-align: right;
     margin-right: 10px;
+}
+
+.order-confirm>.go-back:hover {
+    cursor: pointer;
 }

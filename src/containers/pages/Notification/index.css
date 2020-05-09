@@ -52,3 +52,8 @@
 .notifications>.details>.action>span.go-back {
     color: #5468FF;
 }
+
+.notifications>.details>.action>span.go-back:hover,
+.notifications>.details>.action>span.delete:hover {
+    cursor: pointer;
+}
