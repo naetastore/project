@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, HashRouter } from 'react-router-dom';
 import Menu from '../containers/organism/Menu';
 import NavCheckout from '../containers/organism/NavCheckout';
 import Home from '../containers/pages/Home';
@@ -24,25 +24,27 @@ import Gallery from '../containers/pages/Gallery';
 function Routes() {
     return (
         <BrowserRouter>
-            <Menu />
-            <NavCheckout />
-            <Route path="/" exact component={Home} />
-            <Route path="/book/:gid" component={Book} />
-            <Route path="/single/:id" component={Single} />
-            <Route path="/catalog/:cid" component={Catalog} />
-            <Route path="/product" component={Product} />
-            <Route path="/search" component={Search} />
-            <Route path="/auth" component={Auth} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/account" component={Account} />
-            <Route path="/account/myprofile" component={MyProfile} />
-            <Route path="/account/order" component={Order} />
-            <Route path="/account/notification" component={Notification} />
-            <Route path="/account/settings" component={Settings} />
-            <Route path="/shoppingcart" component={ShoppingCart} />
-            <Route path="/billing" component={Billing} />
-            <Route path="/ordersummary" component={OrderSummary} />
-            <Route path="/gallery" component={Gallery} />
+            <HashRouter>
+                <Menu />
+                <NavCheckout />
+                <Route path="/" exact component={Home} />
+                <Route path="/book/:gid" component={Book} />
+                <Route path="/single/:id" component={Single} />
+                <Route path="/catalog/:cid" component={Catalog} />
+                <Route path="/product" component={Product} />
+                <Route path="/search" component={Search} />
+                <Route path="/auth" component={Auth} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/account" component={Account} />
+                <Route path="/account/myprofile" component={MyProfile} />
+                <Route path="/account/order" component={Order} />
+                <Route path="/account/notification" component={Notification} />
+                <Route path="/account/settings" component={Settings} />
+                <Route path="/shoppingcart" component={ShoppingCart} />
+                <Route path="/billing" component={Billing} />
+                <Route path="/ordersummary" component={OrderSummary} />
+                <Route path="/gallery" component={Gallery} />
+            </HashRouter>
 
         </BrowserRouter>
     );
