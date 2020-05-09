@@ -1,21 +1,20 @@
 const set = (userdata) => {
     const s = window.sessionStorage;
-    s.setItem('ns_username', userdata.username);
-    s.setItem('ns_password', userdata.password);
-    s.setItem('ns_avatar', userdata.avatar);
+    s.setItem('userData', JSON.stringify(userdata))
     return true;
 }
 
 const get = (key) => {
     const s = window.sessionStorage;
-    return s.getItem('ns_' + key);
+    const userData = JSON.parse(s.getItem('userData'));
+    if (!key) { return userData }
+    if (!userData) { return null }
+    return userData[key];
 }
 
 const unset = () => {
     const s = window.sessionStorage;
-    s.removeItem('ns_username');
-    s.removeItem('ns_password');
-    s.removeItem('ns_avatar');
+    s.removeItem('userData');
     return true;
 }
 
