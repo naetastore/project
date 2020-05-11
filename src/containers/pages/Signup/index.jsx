@@ -4,7 +4,6 @@ import pageProps from './pageProps.json';
 import Form from '../../organism/Forms/SignUp';
 import API from '../../../services';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import session from '../../../config/session';
 
 class SignUp extends React.Component {
@@ -21,16 +20,7 @@ class SignUp extends React.Component {
             this.setState({ isLoading: false });
 
             if (response.status === 201) {
-                const message = response.data.message;
-                alert(message);
-
-                let userData = response.data.user;
-                userData['password'] = data.password;
-
-                this.setUser(userData);
-                this.redirect();
-
-                return;
+                alert('Registrasi berhasil, Silahkan melakukan login terlebih dahulu.');
             }
 
             this.setState({
@@ -50,34 +40,22 @@ class SignUp extends React.Component {
         session.set(data);
     }
 
-    redirect = () => {
-        let search = this.props.location.search;
-        if (!search) {
-            this.props.history.push('/account/myprofile');
-        } else {
-            search = search.replace('?', '');
-            this.props.history.push(search);
-        }
-    }
-
     render() {
+        const { title, guide } = this.state.pageProps.page;
+        const { pageProps } = this.state;
         return (
             <Template
                 header={
                     <Fragment>
-                        <div className="form-title">
-                            {this.state.pageProps.page.title}
-                        </div>
-                        <div className="form-guide">
-                            {this.state.pageProps.page.guide}
-                        </div>
+                        <div className="form-title">{title}</div>
+                        <div className="form-guide">{guide}</div>
                     </Fragment>
                 }
 
                 container={
                     <Form
                         onSubmit={this.register}
-                        inputProps={this.state.pageProps.input}
+                        inputProps={pageProps.input}
                         isLoading={this.state.isLoading}
                         footer={
                             <Fragment>
@@ -92,8 +70,4 @@ class SignUp extends React.Component {
     }
 }
 
-const reduxDispatch = dispatch => ({
-    setUserData: data => dispatch({ type: 'SET_USERDATA', data })
-});
-
-export default connect(null, reduxDispatch)(SignUp);
+export default SignUp;

@@ -4,6 +4,7 @@ import API from '../../../services';
 import InfiniteScroll from 'react-infinite-scroller';
 import Figure from 'react-bootstrap/Figure'
 import Input from '../../../components/molecules/Input';
+import { Container, Row, Col } from 'react-bootstrap';
 
 let page = 0;
 
@@ -65,15 +66,20 @@ function Gallery(props) {
                     hasMore={hasMore}
                     threshold={60}
                 >
-                    {items.map((p, i) =>
-                        <Figure key={i}>
-                            <Figure.Image
-                                width={window.innerWidth / 3.5}
-                                src={p.image}
-                                onClick={() => props.history.push(`/single/${p.id}`)}
-                            />
-                        </Figure>
-                    )}
+                    <Container>
+                        <Row>
+                            {items.map((p, i) =>
+                                <Col md={4} key={i}>
+                                    <Figure>
+                                        <Figure.Image
+                                            src={p.image}
+                                            onClick={() => props.history.push(`/single/${p.id}`)}
+                                        />
+                                    </Figure>
+                                </Col>
+                            )}
+                        </Row>
+                    </Container>
                 </InfiniteScroll>
             </div>
         </Fragment>

@@ -25,19 +25,21 @@ class Single extends React.Component {
     }
 
     render() {
-        const isExist = this.state.product.name !== undefined;
+        const { product } = this.state;
+        const { addToCart } = this.props;
+        const isExist = product.name !== undefined;
         return (
             <Template
                 container={
                     <div className="mt-3">
-                        <Product className="product-item" data={this.state.product} />
-                        {isExist ?
-                            <div className="product-footer float-right">
+                        <Product className="product-item" data={product} />
+                        {isExist ?(
+                            <div className="product-footer float-right mt-3">
                                 <Button
-                                    onClick={() => this.props.addToCart(this.state.product)}
+                                    onClick={() => addToCart(product)}
                                 ></Button>
                             </div>
-                            : <></>}
+                        ) : null}
                     </div>
                 }
             />

@@ -11,6 +11,7 @@
     z-index: 1;
     width: 100%;
     box-shadow: 0px 5px 15px 6px #0000000d;
+    max-width: 480px;
 }
 
 .nav-checkout>.go-checkout {
