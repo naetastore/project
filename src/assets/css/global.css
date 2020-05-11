@@ -17,6 +17,7 @@ body {
     background-color: #F4F5F9;
 }
 
+/* font type recommended .woff (for website) */
 @font-face {
     font-family: "SF Display";
     font-weight: 400;
