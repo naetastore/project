@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Category from '../../organism/SubCategory';
 import Product from '../../../components/molecules/Product';
 import api from '../../../config/redux/action';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 class Book extends React.Component {
 
@@ -53,32 +54,34 @@ class Book extends React.Component {
         if (this.state.isLoading) return (
             <p className="middle-scr">sedang memuat...</p>
         );
+        const { global, category, product, history } = this.props;
+        const { params } = this.props.match;
         return (
             <Template
                 header={
                     <Fragment>
                         <div className="city">Kota Belitang</div>
                         <hr />
-                        <Menu data={this.props.global} to="/book" />
+                        <Menu data={global} to="/book" />
                     </Fragment>
                 }
 
                 container={
-                    this.props.category.map((c, cindex) =>
-                        c.global_id === this.props.match.params.gid
-                            ?
-                            <section id={c.name} key={cindex}>
-                                <Category data={c} onClick={(id) => this.props.history.push(`/catalog/${id}`)} />
-                                <div className="products make-it-horizontal mt-3">
-                                    {this.props.product.map((p, pindex) =>
-                                        p.category_id === c.id
-                                            ?
-                                            <Product data={p} onClick={(id) => this.props.history.push(`/single/${id}`)} key={pindex} />
-                                            : <Fragment key={pindex}></Fragment>
-                                    )}
-                                </div>
+                    category.map((c) =>
+                        c.global_id === params.gid ? (
+                            <section id={c.name} key={c.id}>
+                                <Category data={c} onClick={(id) => history.push(`/catalog/${id}`)} />
+                                <ScrollContainer className="scroll-container" horizontal={true}>
+                                    <div className="products mt-3">
+                                        {product.map((p) =>
+                                            p.category_id === c.id ? (
+                                                <Product data={p} onClick={(id) => history.push(`/single/${id}`)} key={p.id} />
+                                            ) : ( <Fragment key={p.id}></Fragment> )
+                                        )}
+                                    </div>
+                                </ScrollContainer>
                             </section>
-                            : <Fragment key={cindex}></Fragment>
+                        ) : ( <Fragment key={c.id}></Fragment> )
                     )
                 }
             />

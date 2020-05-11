@@ -56,7 +56,8 @@ class Home extends React.Component {
     }
 
     render() {
-        if (this.state.isLoading) return <App says="collecting data.." />;
+        if (this.state.isLoading) return <App />;
+        const { history, global, suggested } = this.props;
         return (
             <Template
                 header={
@@ -67,7 +68,7 @@ class Home extends React.Component {
                         </div>
                         <Input
                             placeholder="Saya mencari..."
-                            onClick={(keyword) => this.props.history.push(`/search?${keyword}`)} />
+                            onClick={(keyword) => history.push(`/search?${keyword}`)} />
                         <div className="apps un-text-d_">
                             <AppLink to="/gallery" icon={galleryIcon} label="Galeri Store" />
                         </div>
@@ -79,13 +80,13 @@ class Home extends React.Component {
                         <section id="style">
                             <div className="title text-left ml-2">Style</div>
                             <Styles
-                                data={this.props.global}
-                                onClick={(id) => this.props.history.push(`/book/${id}`)} />
+                                data={global}
+                                onClick={(id) => history.push(`/book/${id}`)} />
                         </section>
                         <section id="suggested">
                             <div className="title text-left ml-2">Disarankan</div>
                             <Product
-                                data={this.props.suggested}
+                                data={suggested}
                                 onClick={(id) => this.props.history.push(`/single/${id}`)} />
                         </section>
                     </Fragment>

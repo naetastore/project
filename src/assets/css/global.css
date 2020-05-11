@@ -1,5 +1,5 @@
 body {
-    font-family: "SF Display";
+    font-family: "Roboto Regular";
     background-color: #F4F5F9;
 }
 
@@ -7,6 +7,12 @@ body {
     font-family: "SF Display";
     font-weight: 400;
     src: url("../font/SF-UI-Display-Regular.otf");
+    font-display: fallback;
+}
+@font-face {
+    font-family: "Roboto Regular";
+    font-weight: 400;
+    src: url("../font/Roboto-Regular.woff");
     font-display: fallback;
 }
 

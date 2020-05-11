@@ -11,9 +11,10 @@
 }
 
 .h_ {
-    height: max-content;
     margin: 15px;
     border-radius: 15px;
+    white-space: nowrap;
+    display: flex;
 }
 
 .h_>a.category-menu {

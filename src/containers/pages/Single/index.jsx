@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Template from '../../templates/Single';
 import API from '../../../services';
 import Product from '../../../components/molecules/Product';
@@ -29,7 +29,7 @@ class Single extends React.Component {
         return (
             <Template
                 container={
-                    <Fragment>
+                    <div className="mt-3">
                         <Product className="product-item" data={this.state.product} />
                         {isExist ?
                             <div className="product-footer float-right">
@@ -38,7 +38,7 @@ class Single extends React.Component {
                                 ></Button>
                             </div>
                             : <></>}
-                    </Fragment>
+                    </div>
                 }
             />
         );

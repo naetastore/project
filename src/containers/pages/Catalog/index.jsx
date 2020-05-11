@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import Template from '../../templates/Book';
 import Menu from '../../organism/CategoryMenu';
 import Product from '../../../components/molecules/Product';
 import Button from '../../../components/molecules/Button';
 import { connect } from 'react-redux';
 import api from '../../../config/redux/action';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class Catalog extends React.Component {
 
@@ -45,31 +45,31 @@ class Catalog extends React.Component {
         if (this.state.isLoading) return (
             <p className="middle-scr">sedang memuat...</p>
         );
+        const { params } = this.props.match;
+        const { product, category } = this.props;
         return (
-            <Template
-                header={
-                    <Fragment>
+            <Container>
+                <Row>
+                    <Col md={12}>
                         <div className="city">Kota Belitang</div>
                         <hr />
-                        <Menu data={this.props.category} to="/catalog" />
-                    </Fragment>
-                }
-
-                container={
-                    this.props.product.map((p, i) =>
-                        p.category_id === this.props.match.params.cid
-                            ?
+                        <Menu data={category} to="/catalog" />
+                    </Col>
+                    {product.map((p, i) =>
+                        p.category_id === params.cid ? (
                             <Fragment key={i}>
-                                <Product className="product-item" data={p} />
-                                <Button
-                                    type="submit"
-                                    onClick={() => this.props.addToCart(p)}
-                                >Tambah ke Troli</Button>
+                                <Col md={6} className="mb-3">
+                                    <Product className="product-item" data={p} />
+                                    <Button
+                                        type="submit"
+                                        onClick={() => this.props.addToCart(p)}
+                                    >Beli</Button>
+                                </Col>
                             </Fragment>
-                            : <Fragment key={i}></Fragment>
-                    )
-                }
-            />
+                        ) : ( <Fragment key={i}></Fragment> )
+                    )}
+                </Row>
+            </Container>
         );
     }
 }

@@ -8,6 +8,7 @@ nav.main-menu.navbar {
     width: 100%;
     box-shadow: 0px 5px 15px 6px #0000000d;
     height: 60px;
+    max-width: 480px;
 }
 
 nav.main-menu.navbar>a.nav-link {

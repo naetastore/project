@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Book(props) {
     return (
         <Fragment>
             {props.header}
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
+            <Container>
+                <Row>
+                    <Col lg={12}>
                         {props.container}
-                    </div>
-                </div>
-            </div>
+                    </Col>
+                </Row>
+            </Container>
         </Fragment>
     );
 }
