@@ -43,6 +43,7 @@ class SignUp extends React.Component {
     render() {
         const { title, guide } = this.state.pageProps.page;
         const { pageProps } = this.state;
+        const s = this.props.location.search;
         return (
             <Template
                 header={
@@ -60,7 +61,7 @@ class SignUp extends React.Component {
                         footer={
                             <Fragment>
                                 <div className="question">Sudah punya akun?</div>
-                                <NavLink to="/auth">Sign In</NavLink>
+                                <NavLink to={!s ? "/auth" : "/auth" + s}>Sign In</NavLink>
                             </Fragment>
                         }
                     />
