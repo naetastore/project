@@ -69,7 +69,12 @@ class Account extends React.Component {
         return (
             <div className="header-account">
                 <div className="account">
-                    <Img src={userData.avatar} onClick={() => this.fileInput.click()} className="avatar" />
+                    <Img
+                        style={{ cursor: "pointer" }}
+                        src={userData.avatar}
+                        onClick={() => this.fileInput.click()}
+                        className="avatar"
+                    />
                     <input
                         style={{ display: "none" }}
                         ref={fileInput => this.fileInput = fileInput}
