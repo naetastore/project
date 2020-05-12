@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { BrowserRouter, Route, HashRouter } from 'react-router-dom';
 import Menu from '../containers/organism/Menu';
@@ -21,12 +21,20 @@ import Billing from '../containers/pages/Billing';
 import OrderSummary from '../containers/pages/OrderSummary';
 import Gallery from '../containers/pages/Gallery';
 
-function Routes() {
+function Navbar(props) {
+    return(
+        <Fragment>
+            <NavCheckout {...props} />
+            <Menu />
+        </Fragment>
+    );
+}
+
+function Routes(props) {
     return (
         <BrowserRouter>
             <HashRouter>
-                <Menu />
-                <NavCheckout />
+                <Route path="/" component={Navbar} />
                 <Route path="/" exact component={Home} />
                 <Route path="/book/:gid" component={Book} />
                 <Route path="/single/:id" component={Single} />
