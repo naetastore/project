@@ -18,7 +18,7 @@ function Avatar(props) {
     });
 
     return (
-        <img src={src} onClick={props.onClick} alt="avatar" className={props.className} />
+        <img style={props.style} src={src} onClick={props.onClick} alt="avatar" className={props.className} />
     );
 }
 
