@@ -7,6 +7,7 @@ import minusicon from '../../../assets/img/icon/minus-light-icon.svg';
 import plusicon from '../../../assets/img/icon/plus-light-icon.svg';
 import Button from '../../../components/molecules/AsyncButton';
 import Img from '../../../components/atoms/Img';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class ShoppingCart extends React.Component {
 
@@ -32,43 +33,92 @@ class ShoppingCart extends React.Component {
     }
 
     render() {
+        const { addedItems, total, cancel } = this.props;
         return (
             <Fragment>
                 <ProgressEvent percent="33" />
                 <div className="page-title">
-                    Total Rp. {this.props.total}
-                    <CloseButton onClick={this.props.cancel} />
+                    Troli
+                    <CloseButton onClick={cancel} />
                 </div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            {this.props.addedItems.map((item, i) =>
-                                <div className="cart-item" key={i}>
-                                    <div className="image">
-                                        <Img src={item.image} alt="product" />
+                <div className="shopping-cart">
+                    <section id="products">
+                        <Container fluid>
+                            <Row>
+                                <Col lg={12}>
+                                    {addedItems.map((item, i) =>
+                                        <div className="cart-item" key={i}>
+                                            <div className="item">
+                                                <div className="image">
+                                                    <Img className="rounded-sm" src={item.image} alt="product" />
+                                                </div>
+                                                <div className="body">
+                                                    <div className="name">{item.name}</div>
+                                                    <div className="price">{item.price}</div>
+                                                    <div className="total">Total: {item.qty * item.price}</div>
+                                                </div>
+                                            </div>
+                                            <div className="counter">
+                                                <button className="btn minus" onClick={() => this.props.minusQty(item)}>
+                                                    <img src={minusicon} alt="icon" className="icon" />
+                                                </button>
+                                                <input type="number" readOnly value={item.qty} />
+                                                <button className="btn plus" onClick={() => this.props.plusQty(item)}>
+                                                    <img src={plusicon} alt="icon" className="icon" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </Col>
+                            </Row>
+                        </Container>
+                    </section>
+                    {/* <section id="address">
+                        <Container fluid>
+                            <Row>
+                                <Col lg={12} className="address">
+                                    <span>Pilih alamat pengiriman</span>
+                                    <span>Pilih</span>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </section> */}
+                    <section id="payment">
+                        <Container fluid>
+                            <Row>
+                                <Col lg={12} className="payment">
+                                    <div className="title">
+                                        Detail Pembayaran (estimasi)
                                     </div>
-                                    <div className="body">
-                                        <div className="name">{item.name}</div>
-                                        <div className="price">{item.price}</div>
-                                        <div className="total">Total: {item.qty * item.price}</div>
+                                    <div className="detail">
+                                        <span>Total Belanja</span>
+                                        <span>{total}</span>
                                     </div>
-                                    <div className="counter">
-                                        <button className="btn minus" onClick={() => this.props.minusQty(item)}>
-                                            <img src={minusicon} alt="icon" className="icon" />
-                                        </button>
-                                        <input type="number" readOnly value={item.qty} />
-                                        <button className="btn plus" onClick={() => this.props.plusQty(item)}>
-                                            <img src={plusicon} alt="icon" className="icon" />
-                                        </button>
+                                    <div className="detail">
+                                        <span>Total Biaya Pengiriman</span>
+                                        <span>0</span>
                                     </div>
-                                </div>
-                            )}
-
-                            {this.props.addedItems.length
-                                ? <Button disabled={false} onClick={this.next}>Lanjutkan</Button> : <></>}
-
-                        </div>
-                    </div>
+                                    <div className="detail text-success">
+                                        <span>Total Pembayaran</span>
+                                        <span>{total}</span>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </section>
+                    <section id="continue">
+                        <Container fluid>
+                            <Row>
+                                <Col lg={12}>
+                                    <Button
+                                        className="mt-3"
+                                        disabled={false}
+                                        onClick={this.next}
+                                    >Lanjutkan</Button>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </section>
                 </div>
             </Fragment>
         );

@@ -5,39 +5,50 @@ button.close {
     outline: none;
 }
 
-.cart-item {
+.shopping-cart>section:first-child {
+    margin-top: 20px;
+}
+
+.shopping-cart>section {
     box-shadow: 0px 5px 15px 6px #0000000d;
-    margin: 20px 0px;
-    padding: 20px;
-    border-radius: 15px;
+    margin-bottom: .5rem;
+}
+
+.cart-item {
+    padding: 20px 0px;
     background-color: #FFF;
 }
 
-.cart-item>.image {
-    text-align: center;
+.cart-item>.item {
+    display: flex;
 }
 
-.cart-item>.image img {
-    height: 200px;
+.cart-item>.item>.image img {
+    margin-right: 1rem;
+    height: 100px;
     background-color: #eaeaea;
 }
 
-.cart-item>.body>.name {
+.cart-item>.item>.body {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+}
+
+.cart-item>.item>.body>.name {
     height: 65px;
     overflow-y: hidden;
     color: #393939;
-    font-weight: 500;
-    font-size: 20px;
-    margin: 15px 0px;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .cart-item>.counter {
-    box-shadow: 0px 5px 15px 6px #0000000d;
+    margin-top: 1rem;
     border-radius: 15px;
     display: flex;
-    width: max-content;
-    margin: 20px auto 0px auto;
-    background-color: #EAEAEA;
+    justify-content: flex-end;
 }
 
 .cart-item>.counter>button {
@@ -63,7 +74,7 @@ button.close {
     border: none;
     font-weight: 500;
     font-size: 20px;
-    background-color: transparent;
+    background-color: #EAEAEA;
 }
 
 .cart-item>.counter>button>.icon {
@@ -71,4 +82,37 @@ button.close {
     position: relative;
     top: -5px;
     background-color: transparent;
+}
+
+.shopping-cart .address {
+    font-size: .92em;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #FFF;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shopping-cart .payment {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #FFF;
+}
+
+.shopping-cart .payment>.title {
+    color: #393939;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: .9em;
+}
+
+.shopping-cart .payment>.detail {
+    display: flex;
+    justify-content: space-between;
+    font-size: .92em;
+    margin-bottom: .1em;
+}
+
+section#continue {
+    margin-bottom: 80px;
 }
