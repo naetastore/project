@@ -155,8 +155,7 @@ class Order extends React.Component {
         return (
             <div className="account-body">
                 <div className="orders">
-                    {this.state.show
-                        ?
+                    {this.state.show ? (
                         <Fragment>
                             <div className="order-confirm">
                                 {access.hasDelete
@@ -196,8 +195,7 @@ class Order extends React.Component {
                             </div>
                             <Summary data={this.state.details} />
                         </Fragment>
-                        :
-                        this.state.data.map((o, i) =>
+                    ) : ( this.state.data.map((o, i) =>
                             <div onClick={() => this.show(o.entry)} className={`list-group readed-${o.readed}`} key={i}>
                                 <div className="details">
                                     <div className="desc" style={{ color: o.textcolor }}>{o.description}</div>
@@ -208,7 +206,7 @@ class Order extends React.Component {
                                 </div>
                             </div>
                         )
-                    }
+                    )}
                 </div>
             </div>
         );
