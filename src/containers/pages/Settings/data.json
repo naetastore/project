@@ -16,5 +16,11 @@
         "id": "phonenumber",
         "placeholder": "12 karakter atau lebih",
         "type": "number"
+    },
+    {
+        "field": "Alamat",
+        "id": "address",
+        "placeholder": "256 karakter atau lebih",
+        "type": "text"
     }
 ]

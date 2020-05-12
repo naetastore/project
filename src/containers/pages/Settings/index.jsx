@@ -4,6 +4,7 @@ import moveicon from '../../../assets/img/icon/move-to-icon.svg';
 import avataricon from '../../../assets/img/icon/account-light-icon.svg';
 import keyicon from '../../../assets/img/icon/key-icon.svg';
 import phoneicon from '../../../assets/img/icon/phone-icon.svg';
+import mapicon from '../../../assets/img/icon/map-icon.svg';
 import { connect } from 'react-redux';
 import API from '../../../services';
 import session from '../../../config/session';
@@ -105,7 +106,7 @@ class Settings extends React.Component {
                     <div className="row">
                         <div className="col-12">
                             <div className="settings">
-                                {show ?
+                                {show ? (
                                     <div className="details">
                                         <div className="name">{details.field}</div>
                                         <input
@@ -122,7 +123,7 @@ class Settings extends React.Component {
                                             <span onClick={this.saveChange} className="go-back">Kembali</span>
                                         </div>
                                     </div>
-                                    :
+                                ) : (
                                     <Fragment>
                                         <div className="list-group" onClick={() => this.show('name')}>
                                             <div className="img">
@@ -160,15 +161,28 @@ class Settings extends React.Component {
                                                 <img src={moveicon} alt="icon" className="icon" />
                                             </div>
                                         </div>
+                                        <div className="list-group" onClick={() => this.show('address')}>
+                                            <div className="img">
+                                                <img src={mapicon} alt="icon" className="icon" />
+                                            </div>
+                                            <div className="details">
+                                                <div className="name">Alamat</div>
+                                                <div className="desc">{user.address ? user.address : 'Tambahkan alamat baru'}</div>
+                                            </div>
+                                            <div className="action">
+                                                <img src={moveicon} alt="icon" className="icon" />
+                                            </div>
+                                        </div>
 
                                     </Fragment>
-                                }
+                                )}
                             </div>
 
-                            {!show ?
+                            {!show ? (
                                 <div className="text-center mt-4">
                                     <button type="button" className="direct mt-4" onClick={this.logout}>KELUAR</button>
-                                </div> : <></>}
+                                </div>
+                            ) : null}
 
                             <hr className="end" />
                         </div>
