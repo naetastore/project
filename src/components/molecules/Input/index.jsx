@@ -21,7 +21,6 @@ function Input(props) {
                 className="keyword"
                 type="text"
                 placeholder={props.placeholder}
-                autoFocus={true}
                 autoComplete="off"
                 onKeyUp={checkKey}
                 defaultValue={props.defaultValue}
